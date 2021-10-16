@@ -10,6 +10,54 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CP470_W8UP">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AddPostActivity"
+            android:exported="true" />
+        <activity
+            android:name=".FriendsListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".UserProfilePageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SocialMediaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".HabitTrackerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".WeightProgressChartActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ViewExerciseActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CreateCustomExerciseActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ExerciseOptionsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RoutineActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CreateNewRoutineActivity"
+            android:exported="true" />
+        <activity
+            android:name=".WorkoutsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".TutorialActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
