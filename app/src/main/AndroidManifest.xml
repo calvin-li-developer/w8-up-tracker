@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="wilfridlaurier.ianroberts.cp470_w8up">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -53,12 +55,13 @@
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true" />
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,6 +69,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/CP470/CP470_W8UP/app/src/main/res/layout/activity_main.xml" value="0.21927083333333333" />
+        <entry key="..\:/Users/Calvin/Nextcloud/Education/Wilfrid Laurier University/Fall - 2021/CP470 - Android Programming/Workspace/W8Up_Tracker/app/src/main/res/layout/activity_login.xml" value="0.4" />
+        <entry key="..\:/Users/Calvin/Nextcloud/Education/Wilfrid Laurier University/Fall - 2021/CP470 - Android Programming/Workspace/W8Up_Tracker/app/src/main/res/layout/activity_main.xml" value="0.33152173913043476" />
+        <entry key="..\:/Users/Calvin/Nextcloud/Education/Wilfrid Laurier University/Fall - 2021/CP470 - Android Programming/Workspace/W8Up_Tracker/app/src/main/res/layout/activity_register.xml" value="0.4" />
       </map>
     </option>
   </component>
