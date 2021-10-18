@@ -3,9 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/CP470/CP470_W8UP/app/src/main/res/layout/activity_main.xml" value="0.21927083333333333" />
-        <entry key="..\:/Users/scoba/AndroidStudioProjects/CP470_W8UP/app/src/main/res/layout/activity_habit_tracker.xml" value="0.264" />
-        <entry key="..\:/Users/scoba/AndroidStudioProjects/CP470_W8UP/app/src/main/res/layout/activity_hydration.xml" value="0.264" />
       </map>
     </option>
   </component>
@@ -14,12 +11,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.4" />
-      </ProjectState>
-    </option>
   </component>
 </project>
