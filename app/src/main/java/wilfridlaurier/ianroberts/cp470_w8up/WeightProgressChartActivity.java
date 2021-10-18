@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.RadarChart;
@@ -24,6 +26,12 @@ public class WeightProgressChartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight_progress_chart);
+        // Dropdown spinner set up
+        Spinner progressSpinner = findViewById(R.id.progressSpinner);
+        String[] workoutItems = new String[]{"Legs", "Back", "Chest", "Abs", "Arms"};
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, workoutItems);
+        progressSpinner.setAdapter(spinnerAdapter);
 
         // Line Chart Set up
         LineChart legChart = findViewById(R.id.weightLineChart);
