@@ -43,7 +43,7 @@
             android:name=".RoutineActivity"
             android:exported="true" />
         <activity
-            android:name=".CreateNewRoutineActivity"
+            android:name=".WorkoutsActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
@@ -58,7 +58,7 @@
             android:name=".LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".WorkoutsActivity"
+            android:name=".CreateNewRoutineActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

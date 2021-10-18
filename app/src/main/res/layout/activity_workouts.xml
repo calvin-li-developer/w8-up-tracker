@@ -25,13 +25,15 @@
             android:src="@drawable/ic_baseline_add_circle_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"/>
+            android:layout_weight="4"
+            android:contentDescription="New Workout Button" />
         <ImageButton
             android:id="@+id/filterWorkoutsButton"
             android:src="@drawable/ic_baseline_filter_alt_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"/>
+            android:layout_weight="4"
+            android:contentDescription="Filter Button" />
     </LinearLayout>
 
 
