@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CP470_W8UP">
         <activity
+            android:name=".HydrationActivity"
+            android:exported="true" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="true" />
         <activity
@@ -66,8 +69,8 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
+
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="MainActivity" />
