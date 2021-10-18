@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CP470_W8UP</string>
+    <string name="newWorkoutButton">Create New Workout</string>
+    <string name="searchWorkoutsSearchView">Search Workouts</string>
 </resources>

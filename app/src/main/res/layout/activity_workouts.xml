@@ -7,6 +7,38 @@
     android:orientation="vertical"
     tools:context=".WorkoutsActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <!-- TODO look into how SearchViews work more-->
+        <SearchView
+            android:id="@+id/searchWorkoutsSearchView"
+            android:queryHint="@string/searchWorkoutsSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/newExerciseButton"
+            android:src="@drawable/ic_baseline_add_circle_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"/>
+        <ImageButton
+            android:id="@+id/filterWorkoutsButton"
+            android:src="@drawable/ic_baseline_filter_alt_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"/>
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/workoutsListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>
