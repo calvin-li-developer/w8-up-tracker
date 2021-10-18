@@ -3,12 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/CP470/CP470_W8UP/app/src/main/res/layout/activity_main.xml" value="0.21927083333333333" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.12708333333333333" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
-        <entry key="app/src/main/res/layout/activity_new_routine.xml" value="0.13020833333333334" />
-        <entry key="app/src/main/res/layout/activity_weight_progress_chart.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/activity_workouts.xml" value="0.25" />
+        
       </map>
     </option>
   </component>
