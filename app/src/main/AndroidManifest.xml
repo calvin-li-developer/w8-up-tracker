@@ -48,7 +48,7 @@
             android:name=".CreateNewRoutineActivity"
             android:exported="true" />
         <activity
-            android:name=".WorkoutsActivity"
+            android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".TutorialActivity"
@@ -57,8 +57,10 @@
             android:name=".RegisterActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
             android:exported="true" >
-
         </activity>
+        <activity
+            android:name=".WorkoutsActivity"
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
