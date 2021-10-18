@@ -82,6 +82,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<!--<<<<<<< Main_Activity-->
         android:layout_marginStart="244dp"
         android:layout_marginTop="108dp"
         android:layout_marginBottom="114dp"
@@ -123,11 +124,29 @@
         android:layout_height="135dp"
         android:layout_marginTop="229dp"
         android:layout_marginBottom="367dp"
+<!--=======-->
+        android:text="Weclome to W8Up Tracker"
+<!-->>>>>>> master-->
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_save" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="LOGOUT"
+        android:textColor="#000000"
+        app:backgroundTint="#BCBCBC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.0"
+        android:onClick="logout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

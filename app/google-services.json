@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "768287929787",
+    "project_id": "cp470-w8up",
+    "storage_bucket": "cp470-w8up.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768287929787:android:5be5fdd554c2ab7c6dc09e",
+        "android_client_info": {
+          "package_name": "wilfridlaurier.ianroberts.cp470_w8up"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768287929787-9ukink9meo0eqhqft4bho9rfnla0o785.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA078UjHW2LQD-3fJqqI1fqjEVbgFzB5hw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768287929787-9ukink9meo0eqhqft4bho9rfnla0o785.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

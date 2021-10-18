@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton workout;
@@ -66,5 +67,12 @@ public class MainActivity extends AppCompatActivity {
     public void openHabitTracker(){
         Intent ht = new Intent(this, HabitTrackerActivity.class);
         startActivity(ht);
+    }
+
+    public void logout(View v)
+    {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        finish();
     }
 }
