@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <!-- TODO look into how SearchViews work more-->
+        <!-- TODO figure out how to have searchbar always open off start -->
         <SearchView
             android:id="@+id/searchWorkoutsSearchView"
             android:queryHint="@string/searchWorkoutsSearchView"
@@ -20,7 +21,7 @@
             android:layout_weight="1" />
 
         <ImageButton
-            android:id="@+id/newExerciseButton"
+            android:id="@+id/newWorkoutButton"
             android:src="@drawable/ic_baseline_add_circle_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
