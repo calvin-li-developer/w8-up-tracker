@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 public class CreateNewRoutineActivity extends AppCompatActivity {
+
+    protected final String ACTIVITY_NAME = "CreateNewRoutineAct";
 
     Button exerciseOptionsButton;
     Button viewWorkoutButton;
@@ -16,8 +19,10 @@ public class CreateNewRoutineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_routine);
-        exerciseOptionsButton = findViewById(R.id.exerciseOptionsButton2);
+        exerciseOptionsButton = findViewById(R.id.exerciseOptionsButton);
         viewWorkoutButton = findViewById(R.id.viewWorkoutButton);
+
+        Log.i(ACTIVITY_NAME, "Gets to here");
 
         exerciseOptionsButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,7 +23,7 @@ public class WorkoutsActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME = "WorkoutsActivity";
 
     SearchView workoutsSearchView;
-    ImageButton newWorkoutButton;
+    ImageButton wnewWorkoutButton;
     ImageButton filterWorkoutsButton;
     ListView workoutsListView;
     ArrayAdapter adapter;
@@ -37,7 +37,7 @@ public class WorkoutsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workouts);
         workoutsSearchView = findViewById(R.id.searchWorkoutsSearchView);
-        newWorkoutButton = findViewById(R.id.newWorkoutButton);
+        wnewWorkoutButton = findViewById(R.id.newWorkoutButton);
         filterWorkoutsButton = findViewById(R.id.filterWorkoutsButton);
         workoutsListView = findViewById(R.id.workoutsListView);
 
@@ -70,11 +70,11 @@ public class WorkoutsActivity extends AppCompatActivity {
             }
         });
 
-        newWorkoutButton.setOnClickListener(new View.OnClickListener() {
+        wnewWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(ACTIVITY_NAME, "User clicked add new workout");
-                Intent newWorkoutIntent = new Intent(WorkoutsActivity.this, CreateNewRoutineActivity.class);
+                Intent newWorkoutIntent = new Intent(getApplicationContext(), CreateNewRoutineActivity.class);
                 startActivity(newWorkoutIntent);
             }
         });
