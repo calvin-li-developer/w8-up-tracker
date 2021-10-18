@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
@@ -21,6 +25,26 @@ public class WeightProgressChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight_progress_chart);
 
+        // Line Chart Set up
+        LineChart legChart = findViewById(R.id.weightLineChart);
+
+        ArrayList<Entry> lineYvals = new ArrayList<>();
+
+        lineYvals.add(new Entry(0,105f));
+        lineYvals.add(new Entry(1,135f));
+        lineYvals.add(new Entry(2,115f));
+        lineYvals.add(new Entry(3,165f));
+        lineYvals.add(new Entry(4,190f));
+        lineYvals.add(new Entry(5,225f));
+
+        LineDataSet lineLegSet1 = new LineDataSet(lineYvals, "Back Squats");
+        lineLegSet1.setFillAlpha(110);
+
+        LineData lineLegData1 = new LineData(lineLegSet1);
+        legChart.setData(lineLegData1);
+
+
+        // Radar Chart Set Up
         RadarChart weightRadarChart = findViewById(R.id.weightRadarChart);
 
         ArrayList<RadarEntry> legWeights = new ArrayList<>();
