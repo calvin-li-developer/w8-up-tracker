@@ -1,5 +1,6 @@
 package wilfridlaurier.ianroberts.cp470_w8up;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,15 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 // TODO Update naming conventions
@@ -50,6 +60,10 @@ public class AllWorkoutsActivity extends AppCompatActivity {
     // ArrayList<String> list1;
     ArrayList<Workout> userWorkouts;
 
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +76,22 @@ public class AllWorkoutsActivity extends AppCompatActivity {
 
         userWorkouts = new ArrayList<>();
         // TODO get the list of workouts for the user from the database and put it into the arraylist
+
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+
+        userID = fAuth.getCurrentUser().getUid();
+
+        DocumentReference documentReference = fStore.collection("users").document(userID);
+        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                // TODO fix the below and figure out how to get data properly
+                ArrayList<String> workouts = value.get("userWorkouts", ArrayList.class);
+                Log.i(ACTIVITY_NAME, workouts.get(0));
+            }
+        });
+
 
         // Below is test code for searching and filtering the list
 //        list1 = new ArrayList<>();
