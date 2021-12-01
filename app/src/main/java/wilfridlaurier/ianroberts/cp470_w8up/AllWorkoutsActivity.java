@@ -2,23 +2,41 @@ package wilfridlaurier.ianroberts.cp470_w8up;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class WorkoutsActivity extends AppCompatActivity {
+// TODO Update naming conventions
+
+/*
+    Naming. WorkoutsActivity                -> AllWorkoutsActivity     -> Shows list of all workouts
+            RoutineActivity                 -> WorkoutViewActivity     -> Shows selected Workout
+            CreateNewRoutineActivity        -> WorkoutCreateActivity   -> Allows for workout creation
+            ExerciseOptionsActivity         -> ExerciseListActivity    -> Used when adding exercise to a workout
+            ViewExerciseActivity            -> ExerciseViewActivity    -> Shows exercise weights/reps etc.
+            CreateCustomExerciseActivity    -> ExerciseCreateActivity  -> Allows for custom exercise creation
+            no previous file                -> ExerciseEditActivity    -> Allows user to edit an exercise
+ */
+
+/*
+
+    This is the Workouts Activity. It will present the user with a list of there custom workouts.
+    In addition it will:
+        - Give the user the option to create a new custom workout that will send them to the
+        CreateNewRoutineActivity
+        - Give the user the option to select a workout which will send them to the
+
+
+ */
+
+public class AllWorkoutsActivity extends AppCompatActivity {
 
     protected static final String ACTIVITY_NAME = "WorkoutsActivity";
 
@@ -35,7 +53,7 @@ public class WorkoutsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workouts);
+        setContentView(R.layout.activity_all_workouts);
         workoutsSearchView = findViewById(R.id.searchWorkoutsSearchView);
         wnewWorkoutButton = findViewById(R.id.newWorkoutButton);
         filterWorkoutsButton = findViewById(R.id.filterWorkoutsButton);
@@ -74,7 +92,7 @@ public class WorkoutsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i(ACTIVITY_NAME, "User clicked add new workout");
-                Intent newWorkoutIntent = new Intent(getApplicationContext(), CreateNewRoutineActivity.class);
+                Intent newWorkoutIntent = new Intent(getApplicationContext(), WorkoutCreateActivity.class);
                 startActivity(newWorkoutIntent);
             }
         });
