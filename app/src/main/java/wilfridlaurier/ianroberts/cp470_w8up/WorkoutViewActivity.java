@@ -7,21 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class RoutineActivity extends AppCompatActivity {
+public class WorkoutViewActivity extends AppCompatActivity {
 
     Button viewExerciseButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_routine);
+        setContentView(R.layout.activity_workout_view);
 
         viewExerciseButton = findViewById(R.id.viewExerciseButton);
 
         viewExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToExercise = new Intent(RoutineActivity.this, ViewExerciseActivity.class);
+                Intent goToExercise = new Intent(WorkoutViewActivity.this, ExerciseViewActivity.class);
                 startActivity(goToExercise);
             }
         });
