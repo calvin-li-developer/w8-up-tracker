@@ -8,6 +8,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+/*
+
+    This is the Create Workout Activity. It will allow the user create a workout and add
+    exercises to it.
+    In addition it will:
+        - Allow the user to name the workout
+        - Allow the user click on the add exercise button which will take them to
+        the ExerciseListActivity
+        - Allow the user to set the muscle group of the workout
+
+ */
+
 public class WorkoutCreateActivity extends AppCompatActivity {
 
     protected final String ACTIVITY_NAME = "CreateNewRoutineAct";

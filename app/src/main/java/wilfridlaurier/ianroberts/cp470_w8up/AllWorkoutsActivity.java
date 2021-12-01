@@ -27,12 +27,13 @@ import java.util.ArrayList;
 
 /*
 
-    This is the Workouts Activity. It will present the user with a list of there custom workouts.
+    This is the Workouts Activity. It will present the user with a list of their custom workouts.
     In addition it will:
         - Give the user the option to create a new custom workout that will send them to the
-        CreateNewRoutineActivity
-        - Give the user the option to select a workout which will send them to the
-
+        WorkoutCreateActivity
+        - Give the user the option to select a workout which will send them to the WorkoutViewActivity
+        - Give them the option to delete a workout
+        - The user will be able to search these workouts as well as filter by muscle group
 
  */
 

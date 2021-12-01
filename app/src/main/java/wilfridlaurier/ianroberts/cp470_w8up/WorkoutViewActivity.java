@@ -7,6 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/*
+
+    This is the View Workout Activity. It will allow the user to see a certain workout
+    In addition it will:
+        - Give the user the option to edit this workout which will send them to
+        the Workout
+        - Give the user the option to add a set/rep/weight to the exercise which will send them
+        to the ExerciseEditActivity
+
+ */
+
 public class WorkoutViewActivity extends AppCompatActivity {
 
     Button viewExerciseButton;

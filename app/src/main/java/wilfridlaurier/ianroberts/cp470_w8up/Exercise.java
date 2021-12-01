@@ -4,6 +4,29 @@ import android.media.Image;
 
 import java.util.ArrayList;
 
+/*
+
+    This is the Exercise Object. It has these fields:
+
+        String exerciseName - Holds the name of the exercise
+
+        ArrayList<SetRep> setRepConfigs - which is an arraylist of SetRep objects telling you the
+        amount weight, reps, and sets
+
+        String muscleGroupCategory - which is the defined muscle group for the exercise
+
+        Image exerciseImage - to identify the exercise
+
+    It has the methods:
+
+        2 constructor methods for creating an exercise with or without an image
+
+        Get/Set methods for all fields
+
+        2 additional methods for adding or removing SetReps from the exercise
+
+ */
+
 public class Exercise {
     String exerciseName = "";
     ArrayList<SetRep> setRepConfigs = new ArrayList<>();

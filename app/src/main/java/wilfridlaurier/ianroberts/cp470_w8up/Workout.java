@@ -4,6 +4,33 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
+/*
+
+    This is the Workout Object. It has these fields:
+
+        String workoutName - Holds the name of the workout
+
+        ArrayList<Exercise> exerciseList - which is an arraylist of Exercise objects
+
+        Boolean isPinned - telling you whether or not to keep these workouts at the top of the list
+
+        Date createdDate - used for sorting of the workouts newest to oldest
+
+        Date modifiedDate - used for sorting of the workouts by last modified
+
+        ArrayList<String> muscleGroupCategories - which is an arraylist of strings that say which
+        muscle groups are included in this workout
+
+    It has the methods:
+
+        Constructor method for creating a workout object
+
+        Get/Set methods for all relevant fields
+
+        2 additional methods for adding or removing exercises from the workout
+
+ */
+
 // TODO move this to the workouts activity
 enum MuscleGroup{
     CHEST,

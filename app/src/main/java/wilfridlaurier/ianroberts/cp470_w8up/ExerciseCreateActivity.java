@@ -7,6 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/*
+
+    This is the Create Exercise Activity. It will allow the user to create a custom exercise.
+    In addition it will:
+        - Give the user the option choose the name of the exercise
+        - Give the user the option choose the muscle group utilized
+        - Give the user the option to add a picture for the exercise
+        - Give the user the option to start of with a certain set/rep/weight amount
+
+ */
+
 public class ExerciseCreateActivity extends AppCompatActivity {
 
     Button exerciseOptionsButton;
