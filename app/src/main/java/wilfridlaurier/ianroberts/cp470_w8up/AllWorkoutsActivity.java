@@ -3,24 +3,26 @@ package wilfridlaurier.ianroberts.cp470_w8up;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 // TODO Update naming conventions
@@ -55,7 +57,7 @@ public class AllWorkoutsActivity extends AppCompatActivity {
     ImageButton wnewWorkoutButton;
     ImageButton filterWorkoutsButton;
     ListView workoutsListView;
-    ArrayAdapter adapter;
+    WorkoutsAdapter adapter;
     // TODO update this to be a list of workout objects?
     // ArrayList<String> list1;
     ArrayList<Workout> userWorkouts;
@@ -75,6 +77,18 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         workoutsListView = findViewById(R.id.workoutsListView);
 
         userWorkouts = new ArrayList<>();
+
+        // Created test workout/exercise/setrep and added to workout array
+        ArrayList<MuscleGroup> muscleGroupOne = new ArrayList<>();
+        muscleGroupOne.add(MuscleGroup.CHEST);
+        muscleGroupOne.add(MuscleGroup.ARMS);
+        Workout testWorkoutOne = new Workout("WorkoutTestOne",muscleGroupOne);
+        SetRep testSetRepOne = new SetRep("3x10",350);
+        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,MuscleGroup.CHEST);
+        testWorkoutOne.addExercise(testExerciseOne);
+
+        userWorkouts.add(testWorkoutOne);
+
         // TODO get the list of workouts for the user from the database and put it into the arraylist
 
         fAuth = FirebaseAuth.getInstance();
@@ -87,8 +101,8 @@ public class AllWorkoutsActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 // TODO fix the below and figure out how to get data properly
-                ArrayList<String> workouts = value.get("userWorkouts", ArrayList.class);
-                Log.i(ACTIVITY_NAME, workouts.get(0));
+//                ArrayList<String> workouts = value.get("userWorkouts", ArrayList.class);
+//                Log.i(ACTIVITY_NAME, workouts.get(0));
             }
         });
 
@@ -104,7 +118,7 @@ public class AllWorkoutsActivity extends AppCompatActivity {
 //        list1.add("Saturday");
 //        list1.add("Sunday");
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,userWorkouts);
+        adapter = new WorkoutsAdapter(this);
         workoutsListView.setAdapter(adapter);
         workoutsSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -161,44 +175,37 @@ public class AllWorkoutsActivity extends AppCompatActivity {
     }
 
     // TODO adapt this to work correctly for workouts
-//    private class WorkoutsAdapter extends ArrayAdapter<String>{
-//        public WorkoutsAdapter(Context ctx) {
-//            super(ctx, 0);
-//        }
-//
-//        public int getCount() {
-//            return userWorkouts.size();
-//        }
-//
-//        // TODO update this so that you can search by something other than position?
-//        public String getItem(int position) {
-//            return userWorkouts.get(position);
-//        }
-//
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            LayoutInflater inflater = WorkoutsActivity.this.getLayoutInflater();
-//
-//            //This will recreate your View that you made in the resource file. If the position is an even number (position%2 == 0), then inflate chat_row_incoming, else inflate chat_row_outgoing:
-//
-//            View result = null ;
-//
-//            // TODO maybe only need one result statment because we are not changing the layout back and forth?
-//            if(position%2 == 0)
-//                // TODO create layout for how we want the workouts to look
-//                //result = inflater.inflate(R.layout.chat_row_incoming, null);
-//
-//            else
-//
-//                //result = inflater.inflate(R.layout.chat_row_outgoing, null);
-//
-//            //From the resulting view, get the TextView which holds the string message:
-//
-//            // TODO update this / maybe just remove because we are not dynamically updating these in realtime
-//            //TextView message = (TextView)result.findViewById(R.id.message_text);
-//            message.setText(getItem(position)); // get the string at position
-//            return result;
-//        }
-//
-//
-//    }
+    private class WorkoutsAdapter extends ArrayAdapter<String>{
+        public WorkoutsAdapter(Context ctx) {
+            super(ctx, 0);
+        }
+
+        public int getCount() {
+            return userWorkouts.size();
+        }
+
+        // TODO update this so that you can search by something other than position?
+        @Override
+        public String getItem(int position) {
+            return userWorkouts.get(position).toString();
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = AllWorkoutsActivity.this.getLayoutInflater();
+
+            //This will recreate your View that was made in the resource file activity_all_workouts_list_item
+            View result = null ;
+
+            result = inflater.inflate(R.layout.activity_all_workouts_list_item, null);
+
+            //From the resulting view, get the TextView which holds the string message:
+
+            // TODO update this / maybe just remove because we are not dynamically updating these in realtime
+            TextView workoutTitle = (TextView)result.findViewById(R.id.workoutName);
+            workoutTitle.setText(getItem(position)); // get the string at position
+            return result;
+        }
+
+
+    }
 }

@@ -30,18 +30,18 @@ import java.util.ArrayList;
 public class Exercise {
     String exerciseName = "";
     ArrayList<SetRep> setRepConfigs = new ArrayList<>();
-    String muscleGroupCategory = "";
+    MuscleGroup muscleGroupCategory;
     Image exerciseImage;
 
     // TODO sort out how to do images for exercises
 
-    public Exercise(String exerciseName, SetRep setRep, String muscleGroupCategory){
+    public Exercise(String exerciseName, SetRep setRep, MuscleGroup muscleGroupCategory){
         this.exerciseName = exerciseName;
         this.setRepConfigs.add(setRep);
         this.muscleGroupCategory = muscleGroupCategory;
         //this.exerciseImage =
     }
-    public Exercise(String exerciseName, SetRep setRep, String muscleGroupCategory,Image exerciseImage){
+    public Exercise(String exerciseName, SetRep setRep, MuscleGroup muscleGroupCategory,Image exerciseImage){
         this.exerciseName = exerciseName;
         this.setRepConfigs.add(setRep);
         this.muscleGroupCategory = muscleGroupCategory;
@@ -54,7 +54,7 @@ public class Exercise {
         this.exerciseName = exerciseName;
     }
 
-    public void setMuscleGroupCategory(String muscleGroupCategory) {
+    public void setMuscleGroupCategory(MuscleGroup muscleGroupCategory) {
         this.muscleGroupCategory = muscleGroupCategory;
     }
 
@@ -72,7 +72,7 @@ public class Exercise {
         return setRepConfigs;
     }
 
-    public String getMuscleGroupCategory() {
+    public MuscleGroup getMuscleGroupCategory() {
         return muscleGroupCategory;
     }
 

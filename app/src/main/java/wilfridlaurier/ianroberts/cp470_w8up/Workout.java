@@ -47,10 +47,10 @@ public class Workout {
     Boolean isPinned = false;
     Date createdDate = new Date();
     Date lastModified = new Date();
-    ArrayList<String> muscleGroupCategories = new ArrayList<>();
+    ArrayList<MuscleGroup> muscleGroupCategories = new ArrayList<>();
 
     // Constructor for the workout method
-    public Workout(String workoutName, ArrayList<String> muscleGroupCategories){
+    public Workout(String workoutName, ArrayList<MuscleGroup> muscleGroupCategories){
         this.workoutName = workoutName;
         this.muscleGroupCategories = muscleGroupCategories;
     }
@@ -65,7 +65,7 @@ public class Workout {
         lastModified = new Date();
     }
 
-    public void setMuscleGroupCategories(ArrayList<String> muscleGroupCategories) {
+    public void setMuscleGroupCategories(ArrayList<MuscleGroup> muscleGroupCategories) {
         this.muscleGroupCategories = muscleGroupCategories;
         lastModified = new Date();
     }
@@ -95,7 +95,7 @@ public class Workout {
         return lastModified;
     }
 
-    public ArrayList<String> getMuscleGroupCategories() {
+    public ArrayList<MuscleGroup> getMuscleGroupCategories() {
         return muscleGroupCategories;
     }
 
