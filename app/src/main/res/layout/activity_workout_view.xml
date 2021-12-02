@@ -5,11 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ViewExerciseActivity">
+    tools:context=".WorkoutViewActivity">
 
     <TextView
-        android:text="This is where you will view an exercise and edit it if needed."
+        android:text="This is where you will view your workout."
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/viewExerciseButton"
+        android:text="View Exercise"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

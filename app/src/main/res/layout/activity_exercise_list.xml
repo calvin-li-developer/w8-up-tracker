@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ExerciseOptionsActivity">
+    tools:context=".ExerciseListActivity">
 
     <TextView
         android:text="This is where you will choose from a list of grouped exercises to add to your workout."

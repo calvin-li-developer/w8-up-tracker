@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="wilfridlaurier.ianroberts.cp470_w8up">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,10 +14,11 @@
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
+
         <activity
             android:name=".HydrationActivity"
             android:exported="true"
-            android:parentActivityName=".HabitTrackerActivity"/>
+            android:parentActivityName=".HabitTrackerActivity" />
         <activity
             android:name=".SettingsActivity"
             android:exported="true" />
@@ -36,24 +37,24 @@
         <activity
             android:name=".HabitTrackerActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".WeightProgressChartActivity"
             android:exported="true" />
         <activity
-            android:name=".ViewExerciseActivity"
+            android:name=".ExerciseViewActivity"
             android:exported="true" />
         <activity
-            android:name=".CreateCustomExerciseActivity"
+            android:name=".ExerciseCreateActivity"
             android:exported="true" />
         <activity
-            android:name=".ExerciseOptionsActivity"
+            android:name=".ExerciseListActivity"
             android:exported="true" />
         <activity
-            android:name=".RoutineActivity"
+            android:name=".WorkoutViewActivity"
             android:exported="true" />
         <activity
-            android:name=".CreateNewRoutineActivity"
+            android:name=".WorkoutCreateActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
@@ -63,16 +64,16 @@
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
-            android:name=".WorkoutsActivity"
+            android:name=".AllWorkoutsActivity"
             android:exported="true" />
 
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
