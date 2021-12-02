@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-public class CreateNewRoutineActivity extends AppCompatActivity {
+public class WorkoutCreateActivity extends AppCompatActivity {
 
     protected final String ACTIVITY_NAME = "CreateNewRoutineAct";
 
@@ -18,7 +18,7 @@ public class CreateNewRoutineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_routine);
+        setContentView(R.layout.activity_workout_create);
         exerciseOptionsButton = findViewById(R.id.exerciseOptionsButton);
         viewWorkoutButton = findViewById(R.id.viewWorkoutButton);
 
@@ -27,7 +27,7 @@ public class CreateNewRoutineActivity extends AppCompatActivity {
         exerciseOptionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToExerciseOptionsIntent = new Intent(CreateNewRoutineActivity.this, ExerciseOptionsActivity.class);
+                Intent goToExerciseOptionsIntent = new Intent(WorkoutCreateActivity.this, ExerciseListActivity.class);
                 startActivity(goToExerciseOptionsIntent);
             }
         });
@@ -35,7 +35,7 @@ public class CreateNewRoutineActivity extends AppCompatActivity {
         viewWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToWorkoutIntent = new Intent(CreateNewRoutineActivity.this, RoutineActivity.class);
+                Intent goToWorkoutIntent = new Intent(WorkoutCreateActivity.this, WorkoutViewActivity.class);
                 startActivity(goToWorkoutIntent);
             }
         });
