@@ -42,10 +42,30 @@
             android:layout_weight="2"
             android:text="Choose Muscle Group:" />
         <Spinner
-            android:id="@+id/exerciseMuscleGroupSpinner"
+            android:id="@+id/exerciseEditMuscleGroupSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/exerciseSetRepOptionsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Choose set rep config:" />
+
+        <Spinner
+            android:id="@+id/exerciseSetRepsOptionsSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number" />
     </LinearLayout>
 
     <LinearLayout
@@ -58,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Choose amount of sets:" />
+            android:text="Edit amount of sets:" />
 
         <EditText
             android:id="@+id/exerciseSetsEdit"
@@ -78,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Choose amount of reps:" />
+            android:text="Edit amount of reps:" />
 
         <EditText
             android:id="@+id/exerciseRepsEdit"
@@ -98,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Choose amount of weight:" />
+            android:text="Edit amount of weight:" />
 
         <EditText
             android:id="@+id/exerciseWeightEdit"
@@ -113,6 +133,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:text="Create Exercise" />
+        android:text="Edit Exercise" />
 
 </LinearLayout>
