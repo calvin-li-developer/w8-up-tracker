@@ -87,7 +87,7 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         muscleGroupOne.add(MuscleGroup.CHEST);
         muscleGroupOne.add(MuscleGroup.ARMS);
         Workout testWorkoutOne = new Workout("WorkoutTestOne",muscleGroupOne);
-        SetRep testSetRepOne = new SetRep("3x10",350);
+        SetRep testSetRepOne = new SetRep(3,10,350);
         Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,MuscleGroup.CHEST);
         testWorkoutOne.addExercise(testExerciseOne);
 
@@ -95,7 +95,7 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         muscleGroupTwo.add(MuscleGroup.BACK);
         muscleGroupTwo.add(MuscleGroup.ARMS);
         Workout testWorkoutTwo = new Workout("WorkoutTestTwo",muscleGroupTwo);
-        SetRep testSetRepTwo = new SetRep("3x10",350);
+        SetRep testSetRepTwo = new SetRep(3,10,350);
         Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,MuscleGroup.BACK);
         testWorkoutTwo.addExercise(testExerciseTwo);
 
