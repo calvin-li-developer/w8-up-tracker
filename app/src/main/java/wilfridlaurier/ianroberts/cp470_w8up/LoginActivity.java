@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText lEmail, lPassword;
     Button lLoginBtn;
     TextView lRegisterBtn;
-    FirebaseAuth fAuth;
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();
     ProgressBar progressBar;
 
     @Override
@@ -34,12 +36,18 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Check if there still is a logged in user.
+        if (fAuth.getCurrentUser() != null)
+        {
+            // Log out their account
+            fAuth.signOut();
+        }
+
         lEmail = findViewById(R.id.loginEmail);
         lPassword = findViewById(R.id.loginPwd);
         lRegisterBtn = findViewById(R.id.loginRegisterBtn);
         lLoginBtn = findViewById(R.id.loginBtn);
 
-        fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBarLogin);
 
         lRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         // authenticate the user
-
         fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
