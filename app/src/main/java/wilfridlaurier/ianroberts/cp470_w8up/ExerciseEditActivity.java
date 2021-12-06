@@ -45,14 +45,14 @@ public class ExerciseEditActivity extends AppCompatActivity {
 
         userExercises = new ArrayList<Exercise>();
 
-        SetRep testSetRepOne = new SetRep(3,10,350);
-        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,MuscleGroup.CHEST);
+//        SetRep testSetRepOne = new SetRep(3,10,350);
+//        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,MuscleGroup.CHEST.toString());
+//
+//        SetRep testSetRepTwo = new SetRep(3,10,350);
+//        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,MuscleGroup.BACK.toString());
 
-        SetRep testSetRepTwo = new SetRep(3,10,350);
-        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,MuscleGroup.BACK);
-
-        userExercises.add(testExerciseOne);
-        userExercises.add(testExerciseTwo);
+//        userExercises.add(testExerciseOne);
+//        userExercises.add(testExerciseTwo);
 
 //        muscleGroupSpinner = (Spinner) findViewById(R.id.exerciseMuscleGroupSpinner);
 //        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.muscleGroups, android.R.layout.simple_spinner_item);
@@ -60,7 +60,7 @@ public class ExerciseEditActivity extends AppCompatActivity {
 //        muscleGroupSpinner.setAdapter(adapter);
 
         Spinner muscleGroupSpinner = (Spinner) findViewById(R.id.exerciseMuscleGroupSpinner);
-        muscleGroupSpinner.setAdapter(new ArrayAdapter<MuscleGroup>(this, android.R.layout.simple_spinner_item, MuscleGroup.values()));
+        muscleGroupSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.muscleGroups)));
 
         //Spinner setRepSpinner = (Spinner) findViewById(R.id.exerciseMuscleGroupSpinner);
         //setRepSpinner.setAdapter(new ArrayAdapter<MuscleGroup>(this, android.R.layout.simple_spinner_item,userExercises));
@@ -71,7 +71,7 @@ public class ExerciseEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SetRep newSetRep = new SetRep(Integer.parseInt(exerciseSets.getText().toString()),Integer.parseInt(exerciseReps.getText().toString()), (Integer.parseInt(exerciseWeight.getText().toString())));
-                Exercise newExercise = new Exercise(exerciseName.getText().toString(),newSetRep,(MuscleGroup) muscleGroupSpinner.getSelectedItem());
+                Exercise newExercise = new Exercise(exerciseName.getText().toString(),newSetRep,(String) muscleGroupSpinner.getSelectedItem());
                 //TODO add this new exercise to the list of exercises for the user
                 //TODO add a toast for the new exercise being created
                 Intent goToExerciseOptionsIntent = new Intent(ExerciseEditActivity.this, ExerciseListActivity.class);

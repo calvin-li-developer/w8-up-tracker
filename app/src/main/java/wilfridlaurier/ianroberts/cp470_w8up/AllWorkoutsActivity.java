@@ -20,8 +20,11 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -29,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 // TODO Update naming conventions
@@ -71,6 +75,8 @@ public class AllWorkoutsActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     String userID;
 
+    String filterOption = "ALL";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,59 +91,50 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
 
-        DatabaseReference myRef = database.getReference("users/"+userID+"/userWorkouts");
+        DatabaseReference rootRef = database.getReference();
+        DatabaseReference workoutsReference = rootRef.child("users").child(userID).child("userWorkouts");
 
         userWorkouts = new ArrayList<>();
 
-        ArrayList<MuscleGroup> muscleGroupOne = new ArrayList<>();
-        muscleGroupOne.add(MuscleGroup.CHEST);
-        muscleGroupOne.add(MuscleGroup.ARMS);
-        Workout testWorkoutOne = new Workout("WorkoutTestOne",muscleGroupOne);
-        SetRep testSetRepOne = new SetRep(3,10,350);
-        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,MuscleGroup.CHEST);
-        testWorkoutOne.addExercise(testExerciseOne);
-
-        ArrayList<MuscleGroup> muscleGroupTwo = new ArrayList<>();
-        muscleGroupTwo.add(MuscleGroup.BACK);
-        muscleGroupTwo.add(MuscleGroup.ARMS);
-        Workout testWorkoutTwo = new Workout("WorkoutTestTwo",muscleGroupTwo);
-        SetRep testSetRepTwo = new SetRep(3,10,350);
-        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,MuscleGroup.BACK);
-        testWorkoutTwo.addExercise(testExerciseTwo);
-
-        userWorkouts.add(testWorkoutOne);
-        userWorkouts.add(testWorkoutTwo);
-
-        myRef.setValue(userWorkouts);
-        // TODO get the list of workouts for the user from the database and put it into the arraylist
-
-//        database.getReference("users/"+userID+"/userWorkouts").child("user " + i).setValue(user);
-//        User user = dataSnapshot.getValue(User.class);
-
-//        DocumentReference documentReference = database.collection("users").document(userID);
-//        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                // TODO fix the below and figure out how to get data properly
-//                ArrayList<String> workouts = value.get("userWorkouts", ArrayList.class);
-//                Log.i(ACTIVITY_NAME, workouts.get(0));
-//            }
-//        });
-
-
-        // Below is test code for searching and filtering the list
-//        list1 = new ArrayList<>();
+//        ArrayList<MuscleGroup> muscleGroupOne = new ArrayList<>();
+//        muscleGroupOne.add(MuscleGroup.CHEST);
+//        muscleGroupOne.add(MuscleGroup.ARMS);
+//        Workout testWorkoutOne = new Workout("WorkoutTestOne",muscleGroupOne);
+//        SetRep testSetRepOne = new SetRep(3,10,350);
+//        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,MuscleGroup.CHEST);
+//        testWorkoutOne.addExercise(testExerciseOne);
 //
-//        list1.add("Monday");
-//        list1.add("Tuesday");
-//        list1.add("Wednesday");
-//        list1.add("Thursday");
-//        list1.add("Friday");
-//        list1.add("Saturday");
-//        list1.add("Sunday");
+//        ArrayList<MuscleGroup> muscleGroupTwo = new ArrayList<>();
+//        muscleGroupTwo.add(MuscleGroup.BACK);
+//        muscleGroupTwo.add(MuscleGroup.ARMS);
+//        Workout testWorkoutTwo = new Workout("WorkoutTestTwo",muscleGroupTwo);
+//        SetRep testSetRepTwo = new SetRep(3,10,350);
+//        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,MuscleGroup.BACK);
+//        testWorkoutTwo.addExercise(testExerciseTwo);
+//
+//        userWorkouts.add(testWorkoutOne);
+//        userWorkouts.add(testWorkoutTwo);
+//
+//        workoutsReference.setValue(userWorkouts);
 
-        adapter = new WorkoutsAdapter(this,0,userWorkouts);
-        workoutsListView.setAdapter(adapter);
+        workoutsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userWorkouts = new ArrayList<>();
+                adapter = new WorkoutsAdapter(getApplicationContext(), 0, userWorkouts);
+                workoutsListView.setAdapter(adapter);
+                for (DataSnapshot workout : snapshot.getChildren()) {
+                    userWorkouts.add(workout.getValue(Workout.class));
+                }
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(ACTIVITY_NAME, "Could not get user workouts", error.toException());
+            }
+        });
+
+
         workoutsSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -146,15 +143,24 @@ public class AllWorkoutsActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                ArrayList<Workout> filterWorkouts = new ArrayList<Workout>();
+                ArrayList<Workout> filterWorkouts = new ArrayList<>();
                 for(Workout workout : userWorkouts){
                     if(workout.getWorkoutName().toLowerCase().contains(newText.toLowerCase())){
-                        filterWorkouts.add(workout);
+                        if(filterOption.equals("ALL")) {
+                            filterWorkouts.add(workout);
+                        }
+                        else{
+                            for(String muscleGroup : workout.getMuscleGroupCategories()){
+                                if(muscleGroup.toLowerCase().equals(filterOption.toLowerCase())){
+                                    filterWorkouts.add(workout);
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
                 adapter = new WorkoutsAdapter(getApplicationContext(),0,filterWorkouts);
                 workoutsListView.setAdapter(adapter);
-                //adapter.getFilter().filter(newText);
                 return false;
             }
         });
@@ -200,52 +206,23 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         Log.i(ACTIVITY_NAME, "In onDestroy()");
     }
 
-    // TODO adapt this to work correctly for workouts
     private class WorkoutsAdapter extends ArrayAdapter<Workout>{
         public WorkoutsAdapter(Context ctx,int resource, ArrayList<Workout> workoutsList) {
-            super(ctx, 0,workoutsList);
-        }
-
-        public int getCount() {
-            return userWorkouts.size();
-        }
-
-        // TODO update this so that you can search by something other than position?
-        @Override
-        public Workout getItem(int position) {
-            return userWorkouts.get(position);
+            super(ctx, resource,workoutsList);
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View result, ViewGroup parent) {
             Workout workout = getItem(position);
 
-            if(convertView == null){
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_all_workouts_list_item,parent,false);
+            if(result == null){
+                result = LayoutInflater.from(getContext()).inflate(R.layout.activity_all_workouts_list_item,parent,false);
             }
 
-            //LinearLayout workoutLayout = convertView.findViewById(R.id.workoutLayout);
-            TextView workoutName = convertView.findViewById(R.id.workoutName);
-            ImageButton editWorkout = convertView.findViewById(R.id.editWorkout);
+            TextView workoutName = (TextView) result.findViewById(R.id.workoutName);
             workoutName.setText(workout.getWorkoutName());
-            editWorkout.setImageResource(R.drawable.ic_edit_icon);
-            return convertView;
 
-            //            LayoutInflater inflater = AllWorkoutsActivity.this.getLayoutInflater();
-//
-//            //This will recreate your View that was made in the resource file activity_all_workouts_list_item
-//            View result = null ;
-//
-//            result = inflater.inflate(R.layout.activity_all_workouts_list_item, null);
-//
-//            //From the resulting view, get the TextView which holds the string message:
-//
-//            // TODO update this / maybe just remove because we are not dynamically updating these in realtime
-//            TextView workoutTitle = (TextView)result.findViewById(R.id.workoutName);
-//            workoutTitle.setText(getItem(position).getWorkoutName()); // get the string at position
-//            return result;
+            return result;
         }
-
-
     }
 }

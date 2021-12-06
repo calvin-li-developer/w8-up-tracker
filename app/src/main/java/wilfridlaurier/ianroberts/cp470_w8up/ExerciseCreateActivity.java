@@ -11,6 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 /*
 
     This is the Create Exercise Activity. It will allow the user to create a custom exercise.
@@ -30,6 +36,9 @@ public class ExerciseCreateActivity extends AppCompatActivity {
     EditText exerciseWeight;
     Button exerciseCreateButton;
 
+    FirebaseAuth fAuth;
+    String userID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +50,33 @@ public class ExerciseCreateActivity extends AppCompatActivity {
         exerciseReps = (EditText) findViewById(R.id.exerciseRepsEdit);
         exerciseWeight = (EditText) findViewById(R.id.exerciseWeightEdit);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        userID = fAuth.getCurrentUser().getUid();
+
+        DatabaseReference rootRef = database.getReference();
+        DatabaseReference exercisesReference = rootRef.child("users").child(userID).child("userExercises");
+
+        SetRep testSetRepOne = new SetRep(3,10,350);
+        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,"Chest");
+
+        SetRep testSetRepTwo = new SetRep(3,10,350);
+        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,"Back");
+
+        ArrayList<Exercise> userExercises = new ArrayList<>();
+        userExercises.add(testExerciseOne);
+        userExercises.add(testExerciseTwo);
+
+        exercisesReference.setValue(userExercises);
+
 
 //        muscleGroupSpinner = (Spinner) findViewById(R.id.exerciseMuscleGroupSpinner);
 //        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.muscleGroups, android.R.layout.simple_spinner_item);
 //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        muscleGroupSpinner.setAdapter(adapter);
 
-        Spinner mySpinner = (Spinner) findViewById(R.id.exerciseMuscleGroupSpinner);
-        mySpinner.setAdapter(new ArrayAdapter<MuscleGroup>(this, android.R.layout.simple_spinner_item, MuscleGroup.values()));
+        Spinner muscleGroupSpinner = (Spinner) findViewById(R.id.exerciseMuscleGroupSpinner);
+        muscleGroupSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.muscleGroups)));
 
         exerciseCreateButton = findViewById(R.id.exerciseCreateButton);
 
@@ -56,7 +84,7 @@ public class ExerciseCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SetRep newSetRep = new SetRep(Integer.parseInt(exerciseSets.getText().toString()),Integer.parseInt(exerciseReps.getText().toString()), (Integer.parseInt(exerciseWeight.getText().toString())));
-                Exercise newExercise = new Exercise(exerciseName.getText().toString(),newSetRep,(MuscleGroup) muscleGroupSpinner.getSelectedItem());
+                Exercise newExercise = new Exercise(exerciseName.getText().toString(),newSetRep,(String) muscleGroupSpinner.getSelectedItem());
                 //TODO add this new exercise to the list of exercises for the user
                 //TODO add a toast for the new exercise being created
                 Intent goToExerciseOptionsIntent = new Intent(ExerciseCreateActivity.this, ExerciseListActivity.class);

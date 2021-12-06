@@ -3,6 +3,7 @@ package wilfridlaurier.ianroberts.cp470_w8up;
 import android.media.Image;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /*
 
@@ -30,22 +31,25 @@ import java.util.ArrayList;
 public class Exercise {
     String exerciseName = "";
     ArrayList<SetRep> setRepConfigs = new ArrayList<>();
-    MuscleGroup muscleGroupCategory;
-    Image exerciseImage;
+    String muscleGroupCategory;
 
     // TODO sort out how to do images for exercises
 
-    public Exercise(String exerciseName, SetRep setRep, MuscleGroup muscleGroupCategory){
-        this.exerciseName = exerciseName;
-        this.setRepConfigs.add(setRep);
-        this.muscleGroupCategory = muscleGroupCategory;
-        //this.exerciseImage =
+    public Exercise(){
+        this.exerciseName = "";
+        this.setRepConfigs = new ArrayList<SetRep>();
+        this.muscleGroupCategory = "";
     }
-    public Exercise(String exerciseName, SetRep setRep, MuscleGroup muscleGroupCategory,Image exerciseImage){
+
+    public Exercise(String exerciseName, SetRep setRep, String muscleGroupCategory){
         this.exerciseName = exerciseName;
         this.setRepConfigs.add(setRep);
         this.muscleGroupCategory = muscleGroupCategory;
-        //this.exerciseImage = exerciseImage;
+    }
+    public Exercise(String exerciseName, SetRep setRep, String muscleGroupCategory,Image exerciseImage){
+        this.exerciseName = exerciseName;
+        this.setRepConfigs.add(setRep);
+        this.muscleGroupCategory = muscleGroupCategory;
     }
 
     // Set methods for Exercise class
@@ -54,12 +58,8 @@ public class Exercise {
         this.exerciseName = exerciseName;
     }
 
-    public void setMuscleGroupCategory(MuscleGroup muscleGroupCategory) {
+    public void setMuscleGroupCategory(String muscleGroupCategory) {
         this.muscleGroupCategory = muscleGroupCategory;
-    }
-
-    public void setExerciseImage(Image exerciseImage) {
-        this.exerciseImage = exerciseImage;
     }
 
     // Get methods for Exercise class
@@ -72,12 +72,8 @@ public class Exercise {
         return setRepConfigs;
     }
 
-    public MuscleGroup getMuscleGroupCategory() {
+    public String getMuscleGroupCategory() {
         return muscleGroupCategory;
-    }
-
-    public Image getExerciseImage() {
-        return exerciseImage;
     }
 
     // Additional methods

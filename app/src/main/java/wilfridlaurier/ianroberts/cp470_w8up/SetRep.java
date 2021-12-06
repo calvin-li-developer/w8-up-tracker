@@ -22,6 +22,12 @@ public class SetRep {
     int reps = 0;
     int weight = 0;
 
+    public SetRep(){
+        this.sets = 0;
+        this.reps = 0;
+        this.weight = 0;
+    }
+
     public SetRep(int sets, int reps, int weight){
         this.sets = sets;
         this.reps = reps;

@@ -32,14 +32,6 @@ import java.util.Date;
  */
 
 // TODO move this to the workouts activity
-enum MuscleGroup{
-    CHEST,
-    BACK,
-    ARMS,
-    ABDOMINALS,
-    LEGS,
-    SHOULDERS
-}
 
 public class Workout {
     String workoutName = "";
@@ -47,10 +39,14 @@ public class Workout {
     Boolean isPinned = false;
     Date createdDate = new Date();
     Date lastModified = new Date();
-    ArrayList<MuscleGroup> muscleGroupCategories = new ArrayList<>();
+    ArrayList<String> muscleGroupCategories = new ArrayList<>();
 
     // Constructor for the workout method
-    public Workout(String workoutName, ArrayList<MuscleGroup> muscleGroupCategories){
+    public Workout(){
+        this.workoutName = "";
+        this.muscleGroupCategories = new ArrayList<>();
+    }
+    public Workout(String workoutName, ArrayList<String> muscleGroupCategories){
         this.workoutName = workoutName;
         this.muscleGroupCategories = muscleGroupCategories;
     }
@@ -65,7 +61,7 @@ public class Workout {
         lastModified = new Date();
     }
 
-    public void setMuscleGroupCategories(ArrayList<MuscleGroup> muscleGroupCategories) {
+    public void setMuscleGroupCategories(ArrayList<String> muscleGroupCategories) {
         this.muscleGroupCategories = muscleGroupCategories;
         lastModified = new Date();
     }
@@ -77,10 +73,6 @@ public class Workout {
 
     public ArrayList<Exercise> getExerciseList() {
         return exerciseList;
-    }
-
-    public int getNumberOfExercises() {
-        return exerciseList.size();
     }
 
     public Boolean getPinned() {
@@ -95,7 +87,7 @@ public class Workout {
         return lastModified;
     }
 
-    public ArrayList<MuscleGroup> getMuscleGroupCategories() {
+    public ArrayList<String> getMuscleGroupCategories() {
         return muscleGroupCategories;
     }
 
@@ -116,6 +108,10 @@ public class Workout {
             return true;
         }
         return false;
+    }
+
+    public int getNumberOfExercises() {
+        return exerciseList.size();
     }
 }
 
