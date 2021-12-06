@@ -22,10 +22,14 @@
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_weight_progress_chart.xml" value="0.21693840579710144" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_workout_create.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_workout_view.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_workout_view_list_item.xml" value="0.1" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_workouts.xml" value="0.1" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/menu/main.xml" value="0.1" />
       </map>
     </option>
+  </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

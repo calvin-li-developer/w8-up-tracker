@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.ImageButton;
@@ -171,6 +172,21 @@ public class AllWorkoutsActivity extends AppCompatActivity {
                 Log.i(ACTIVITY_NAME, "User clicked add new workout");
                 Intent newWorkoutIntent = new Intent(getApplicationContext(), WorkoutCreateActivity.class);
                 startActivity(newWorkoutIntent);
+            }
+        });
+
+        workoutsListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //Workout selectedWorkout = (Workout) (workoutsListView.getItemAtPosition(i));
+                Intent showWorkout = new Intent(getApplicationContext(),WorkoutViewActivity.class);
+                showWorkout.putExtra("viewWorkout",i);
+                // TODO this will not work. Attach id somehow
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
