@@ -20,6 +20,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -58,7 +60,7 @@ public class AllWorkoutsActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME = "WorkoutsActivity";
 
     SearchView workoutsSearchView;
-    ImageButton wnewWorkoutButton;
+    ImageButton newWorkoutButton;
     ImageButton filterWorkoutsButton;
     ListView workoutsListView;
     WorkoutsAdapter adapter;
@@ -67,7 +69,6 @@ public class AllWorkoutsActivity extends AppCompatActivity {
     ArrayList<Workout> userWorkouts;
 
     FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
     String userID;
 
 
@@ -76,13 +77,18 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_workouts);
         workoutsSearchView = findViewById(R.id.searchWorkoutsSearchView);
-        wnewWorkoutButton = findViewById(R.id.newWorkoutButton);
+        newWorkoutButton = findViewById(R.id.newWorkoutButton);
         filterWorkoutsButton = findViewById(R.id.filterWorkoutsButton);
         workoutsListView = findViewById(R.id.workoutsListView);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        userID = fAuth.getCurrentUser().getUid();
+
+        DatabaseReference myRef = database.getReference("users/"+userID+"/userWorkouts");
+
         userWorkouts = new ArrayList<>();
 
-        // Created test workout/exercise/setrep and added to workout array
         ArrayList<MuscleGroup> muscleGroupOne = new ArrayList<>();
         muscleGroupOne.add(MuscleGroup.CHEST);
         muscleGroupOne.add(MuscleGroup.ARMS);
@@ -102,22 +108,21 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         userWorkouts.add(testWorkoutOne);
         userWorkouts.add(testWorkoutTwo);
 
+        myRef.setValue(userWorkouts);
         // TODO get the list of workouts for the user from the database and put it into the arraylist
 
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
+//        database.getReference("users/"+userID+"/userWorkouts").child("user " + i).setValue(user);
+//        User user = dataSnapshot.getValue(User.class);
 
-        userID = fAuth.getCurrentUser().getUid();
-
-        DocumentReference documentReference = fStore.collection("users").document(userID);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                // TODO fix the below and figure out how to get data properly
+//        DocumentReference documentReference = database.collection("users").document(userID);
+//        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                // TODO fix the below and figure out how to get data properly
 //                ArrayList<String> workouts = value.get("userWorkouts", ArrayList.class);
 //                Log.i(ACTIVITY_NAME, workouts.get(0));
-            }
-        });
+//            }
+//        });
 
 
         // Below is test code for searching and filtering the list
@@ -154,7 +159,7 @@ public class AllWorkoutsActivity extends AppCompatActivity {
             }
         });
 
-        wnewWorkoutButton.setOnClickListener(new View.OnClickListener() {
+        newWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(ACTIVITY_NAME, "User clicked add new workout");
