@@ -23,6 +23,11 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,6 +49,37 @@ public class WeightProgressChartActivity extends AppCompatActivity {
         String currMuscleGroup;
         String currExercise;
         String curr;
+        String userID;
+
+        // Pulling exercise list
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseAuth fAuth;
+        fAuth = FirebaseAuth.getInstance();
+        userID = fAuth.getCurrentUser().getUid();
+
+        DatabaseReference rootRef = database.getReference();
+        DatabaseReference exercisesReference = rootRef.child("users").child(userID).child("userExercises");
+        System.out.println("workoutID: "+exercisesReference.toString());
+
+//        exercisesReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                userExercises = new ArrayList<>();
+//                adapter = new ExercisesAdapter(getApplicationContext(), 0, userExercises);
+//                exercisesListView.setAdapter(adapter);
+//                System.out.println("snapshot: "+snapshot.toString());
+//                for (DataSnapshot exercise : snapshot.getChildren()) {
+//                    Exercise temp = exercise.getValue(Exercise.class);
+//                    userExercises.add(temp);
+//                }
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.w(ACTIVITY_NAME, "Could not get user workout", error.toException());
+//            }
+//        });
 
 
         super.onCreate(savedInstanceState);
