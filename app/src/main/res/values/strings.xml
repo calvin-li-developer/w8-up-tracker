@@ -3,6 +3,7 @@
     <string name="Dashboard">Dashboard</string>
     <string name="newWorkoutButton">Create New Workout</string>
     <string name="searchWorkoutsSearchView">Search Workouts</string>
+    <string name="searchExercisesSearchView">Search Exercises</string>
     <string-array name="muscleGroups">
         <item>Abs</item>
         <item>Arms</item>

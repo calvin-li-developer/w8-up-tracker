@@ -34,6 +34,7 @@ import java.util.Date;
 // TODO move this to the workouts activity
 
 public class Workout {
+    String workoutID = "";
     String workoutName = "";
     ArrayList<Exercise> exerciseList = new ArrayList<>();
     Boolean isPinned = false;
@@ -46,12 +47,18 @@ public class Workout {
         this.workoutName = "";
         this.muscleGroupCategories = new ArrayList<>();
     }
-    public Workout(String workoutName, ArrayList<String> muscleGroupCategories){
+    public Workout(String workoutName, ArrayList<String> muscleGroupCategories,Boolean isPinned){
         this.workoutName = workoutName;
         this.muscleGroupCategories = muscleGroupCategories;
+        this.isPinned = isPinned;
     }
 
     // Set methods for the workout class
+
+    public void setWorkoutID(String workoutID) {
+        this.workoutID = workoutID;
+    }
+
     public void setWorkoutName(String workoutName) {
         this.workoutName = workoutName;
         lastModified = new Date();
@@ -66,7 +73,20 @@ public class Workout {
         lastModified = new Date();
     }
 
+    public void setExerciseList(ArrayList<Exercise> exerciseList) {
+        ArrayList<Exercise> temp = new ArrayList<>();
+        for (Exercise e:exerciseList){
+            temp.add(e);
+        }
+        this.exerciseList = temp;
+    }
+
     // Get methods for the workout class
+
+    public String getWorkoutID() {
+        return workoutID;
+    }
+
     public String getWorkoutName() {
         return workoutName;
     }

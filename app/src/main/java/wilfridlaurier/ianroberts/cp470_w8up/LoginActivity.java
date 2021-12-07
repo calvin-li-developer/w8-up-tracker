@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         lRegisterBtn = findViewById(R.id.loginRegisterBtn);
         lLoginBtn = findViewById(R.id.loginBtn);
 
+        lEmail.setText("test@hotmail.com");
+        lPassword.setText("123456");
         progressBar = findViewById(R.id.progressBarLogin);
 
         lRegisterBtn.setOnClickListener(new View.OnClickListener() {

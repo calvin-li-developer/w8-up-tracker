@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
 
@@ -38,12 +40,20 @@ public class ExerciseCreateActivity extends AppCompatActivity {
 
     FirebaseAuth fAuth;
     String userID;
+    String workoutID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_create);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.hasExtra("workoutID")) {
+                workoutID = (String) intent.getExtras().get("workoutID");
+            }
+        }
 
         exerciseName = (EditText) findViewById(R.id.exerciseNameEdit);
         exerciseSets = (EditText) findViewById(R.id.exerciseSetsEdit);
@@ -55,7 +65,7 @@ public class ExerciseCreateActivity extends AppCompatActivity {
         userID = fAuth.getCurrentUser().getUid();
 
         DatabaseReference rootRef = database.getReference();
-        DatabaseReference exercisesReference = rootRef.child("users").child(userID).child("userExercises");
+        DatabaseReference exercisesReference = rootRef.child("users").child(userID);
 
         SetRep testSetRepOne = new SetRep(3,10,350);
         Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,"Chest");
@@ -67,7 +77,18 @@ public class ExerciseCreateActivity extends AppCompatActivity {
         userExercises.add(testExerciseOne);
         userExercises.add(testExerciseTwo);
 
-        exercisesReference.setValue(userExercises);
+        for(Exercise exercise: userExercises) {
+            String key = exercisesReference.push().getKey();
+
+            Map<String,Object> childUpdates = new HashMap<>();
+            exercise.setExerciseID(key);
+            childUpdates.put("/userExercises/" + key, exercise);
+            childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + key, exercise);
+
+            exercisesReference.updateChildren(childUpdates);
+        }
+
+        //exercisesReference.setValue(userExercises);
 
 
 //        muscleGroupSpinner = (Spinner) findViewById(R.id.exerciseMuscleGroupSpinner);

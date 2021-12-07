@@ -29,6 +29,7 @@ import java.util.Set;
  */
 
 public class Exercise {
+    String exerciseID = "";
     String exerciseName = "";
     ArrayList<SetRep> setRepConfigs = new ArrayList<>();
     String muscleGroupCategory;
@@ -54,6 +55,11 @@ public class Exercise {
 
     // Set methods for Exercise class
 
+
+    public void setExerciseID(String exerciseID) {
+        this.exerciseID = exerciseID;
+    }
+
     public void setExerciseName(String exerciseName) {
         this.exerciseName = exerciseName;
     }
@@ -62,7 +68,16 @@ public class Exercise {
         this.muscleGroupCategory = muscleGroupCategory;
     }
 
+    public void setSetRepConfigs(ArrayList<SetRep> setRepConfigs) {
+        this.setRepConfigs = setRepConfigs;
+    }
+
     // Get methods for Exercise class
+
+
+    public String getExerciseID() {
+        return exerciseID;
+    }
 
     public String getExerciseName() {
         return exerciseName;
@@ -75,6 +90,7 @@ public class Exercise {
     public String getMuscleGroupCategory() {
         return muscleGroupCategory;
     }
+
 
     // Additional methods
 

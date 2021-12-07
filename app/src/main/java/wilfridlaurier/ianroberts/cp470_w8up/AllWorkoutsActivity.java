@@ -35,6 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 // TODO Update naming conventions
 
@@ -97,26 +98,40 @@ public class AllWorkoutsActivity extends AppCompatActivity {
 
         userWorkouts = new ArrayList<>();
 
-//        ArrayList<MuscleGroup> muscleGroupOne = new ArrayList<>();
-//        muscleGroupOne.add(MuscleGroup.CHEST);
-//        muscleGroupOne.add(MuscleGroup.ARMS);
+        // Used for creating default workouts
+//        ArrayList<String> muscleGroupOne = new ArrayList<>();
+//        muscleGroupOne.add("Chest");
+//        muscleGroupOne.add("Arms");
 //        Workout testWorkoutOne = new Workout("WorkoutTestOne",muscleGroupOne);
 //        SetRep testSetRepOne = new SetRep(3,10,350);
-//        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,MuscleGroup.CHEST);
+//        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,"Chest");
 //        testWorkoutOne.addExercise(testExerciseOne);
 //
-//        ArrayList<MuscleGroup> muscleGroupTwo = new ArrayList<>();
-//        muscleGroupTwo.add(MuscleGroup.BACK);
-//        muscleGroupTwo.add(MuscleGroup.ARMS);
+//        ArrayList<String> muscleGroupTwo = new ArrayList<>();
+//        muscleGroupTwo.add("Back");
+//        muscleGroupTwo.add("Arms");
 //        Workout testWorkoutTwo = new Workout("WorkoutTestTwo",muscleGroupTwo);
 //        SetRep testSetRepTwo = new SetRep(3,10,350);
-//        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,MuscleGroup.BACK);
+//        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,"Back");
 //        testWorkoutTwo.addExercise(testExerciseTwo);
 //
 //        userWorkouts.add(testWorkoutOne);
 //        userWorkouts.add(testWorkoutTwo);
 //
-//        workoutsReference.setValue(userWorkouts);
+//        for(Workout workout: userWorkouts) {
+//            String key = workoutsReference.push().getKey();
+//
+//            Map<String,Object> childUpdates = new HashMap<>();
+//            workout.setWorkoutID(key);
+//            childUpdates.put("/" + key, workout);
+//            //childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+//
+//            workoutsReference.updateChildren(childUpdates);
+//        }
+
+//        for(Workout workout: userWorkouts){
+//            workoutsReference.push().setValue(workout);
+//        }
 
         workoutsReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -175,21 +190,18 @@ public class AllWorkoutsActivity extends AppCompatActivity {
             }
         });
 
-        workoutsListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        adapter = new WorkoutsAdapter(getApplicationContext(),0,userWorkouts);
+        workoutsListView.setAdapter(adapter);
+
+        workoutsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                //Workout selectedWorkout = (Workout) (workoutsListView.getItemAtPosition(i));
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Workout selectedWorkout = (Workout) (workoutsListView.getItemAtPosition(i));
                 Intent showWorkout = new Intent(getApplicationContext(),WorkoutViewActivity.class);
-                showWorkout.putExtra("viewWorkout",i);
-                // TODO this will not work. Attach id somehow
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+                showWorkout.putExtra("workoutID",selectedWorkout.getWorkoutID());
+                startActivity(showWorkout);
             }
         });
-
     }
 
     @Override

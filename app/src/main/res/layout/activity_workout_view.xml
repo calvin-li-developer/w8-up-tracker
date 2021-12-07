@@ -13,7 +13,7 @@
             android:orientation="horizontal">
             <SearchView
                 android:id="@+id/searchExercisesSearchView"
-                android:queryHint="@string/searchWorkoutsSearchView"
+                android:queryHint="@string/searchExercisesSearchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

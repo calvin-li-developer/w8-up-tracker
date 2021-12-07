@@ -50,8 +50,9 @@ public class WorkoutViewActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     String userID;
     String workoutID;
+    String createdWorkoutID;
 
-    Workout userWorkout;
+    Workout userWorkout = new Workout();
     ArrayList<Exercise> userExercises;
 
     ExercisesAdapter adapter;
@@ -64,12 +65,15 @@ public class WorkoutViewActivity extends AppCompatActivity {
         exerciseSearchView = findViewById(R.id.searchExercisesSearchView);
         newExerciseButton = findViewById(R.id.newExerciseButton);
         filterExercisesButton = findViewById(R.id.filterExercisesButton);
-        exercisesListView = exercisesListView.findViewById(R.id.exercisesListView);
+        exercisesListView = findViewById(R.id.exercisesListView);
 
         Intent intent = getIntent();
         if (intent != null) {
             if (intent.hasExtra("workoutID")) {
                 workoutID = (String) intent.getExtras().get("workoutID");
+            }
+            if (intent.hasExtra("createdWorkoutID")) {
+                createdWorkoutID = (String) intent.getExtras().get("createdWorkoutID");
             }
         }
 
@@ -83,7 +87,11 @@ public class WorkoutViewActivity extends AppCompatActivity {
         workoutReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //DataSnapshot workout = snapshot.getChildren();
                 userWorkout = snapshot.getValue(Workout.class);
+                System.out.println(userWorkout.getWorkoutID());
+                System.out.println(userWorkout.getWorkoutName());
+                System.out.println(userWorkout.getNumberOfExercises());
             }
 
             @Override
@@ -93,7 +101,12 @@ public class WorkoutViewActivity extends AppCompatActivity {
         });
 
         userExercises = userWorkout.getExerciseList();
+        for(Exercise exercise : userExercises) {
+            Log.i(ACTIVITY_NAME, exercise.getExerciseName());
+        }
         adapter = new ExercisesAdapter(getApplicationContext(), 0, userExercises);
+        exercisesListView.setAdapter(adapter);
+
 
 //        DatabaseReference exercisesReference = rootRef.child("users").child(userID).child("userWorkouts").child(workoutID).child("exerciseList");
 //
@@ -114,6 +127,12 @@ public class WorkoutViewActivity extends AppCompatActivity {
 //                Log.w(ACTIVITY_NAME, "Could not get user workouts", error.toException());
 //            }
 //        });
+
+//        for(Exercise exercise : userExercises) {
+//            Log.i(ACTIVITY_NAME, exercise.getExerciseName());
+//        }
+//        adapter = new ExercisesAdapter(getApplicationContext(), 0, userExercises);
+//        exercisesListView.setAdapter(adapter);
 
 
         exerciseSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -156,17 +175,17 @@ public class WorkoutViewActivity extends AppCompatActivity {
             }
         });
 
-        exercisesListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        adapter = new ExercisesAdapter(getApplicationContext(),0,userExercises);
+        exercisesListView.setAdapter(adapter);
+
+        exercisesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Exercise selectedExercise = (Exercise) (exercisesListView.getItemAtPosition(i));
-                Intent showWorkout = new Intent(getApplicationContext(), WorkoutViewActivity.class);
-                //showWorkout.putExtra("viewExercise", selectedExercise);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+                Intent showExercise = new Intent(getApplicationContext(),ExerciseViewActivity.class);
+                //TODO switch this to getExerciseID()
+                showExercise.putExtra("exerciseID",selectedExercise.getExerciseName());
+                startActivity(showExercise);
             }
         });
     }
