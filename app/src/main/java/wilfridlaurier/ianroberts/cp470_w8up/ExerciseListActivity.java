@@ -41,21 +41,21 @@ public class ExerciseListActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
+//
+//        DatabaseReference rootRef = database.getReference();
+//        DatabaseReference exercisesReference = rootRef.child("users").child(userID).child("userExercises");
 
-        DatabaseReference rootRef = database.getReference();
-        DatabaseReference exercisesReference = rootRef.child("users").child(userID).child("userExercises");
+//        SetRep testSetRepOne = new SetRep(3,10,350);
+//        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,"Chest");
+//
+//        SetRep testSetRepTwo = new SetRep(3,10,350);
+//        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,"Back");
 
-        SetRep testSetRepOne = new SetRep(3,10,350);
-        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,"Chest");
+//        ArrayList<Exercise> userExercises = new ArrayList<>();
+//        userExercises.add(testExerciseOne);
+//        userExercises.add(testExerciseTwo);
 
-        SetRep testSetRepTwo = new SetRep(3,10,350);
-        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,"Back");
-
-        ArrayList<Exercise> userExercises = new ArrayList<>();
-        userExercises.add(testExerciseOne);
-        userExercises.add(testExerciseTwo);
-
-        exercisesReference.setValue(userExercises);
+//        exercisesReference.setValue(userExercises);
 
         createCustomExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override

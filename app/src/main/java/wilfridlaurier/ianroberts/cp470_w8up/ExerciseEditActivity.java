@@ -70,8 +70,8 @@ public class ExerciseEditActivity extends AppCompatActivity {
         exerciseCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SetRep newSetRep = new SetRep(Integer.parseInt(exerciseSets.getText().toString()),Integer.parseInt(exerciseReps.getText().toString()), (Integer.parseInt(exerciseWeight.getText().toString())));
-                Exercise newExercise = new Exercise(exerciseName.getText().toString(),newSetRep,(String) muscleGroupSpinner.getSelectedItem());
+//                SetRep newSetRep = new SetRep(Integer.parseInt(exerciseSets.getText().toString()),Integer.parseInt(exerciseReps.getText().toString()), (Integer.parseInt(exerciseWeight.getText().toString())));
+//                Exercise newExercise = new Exercise(exerciseName.getText().toString(),newSetRep,(String) muscleGroupSpinner.getSelectedItem());
                 //TODO add this new exercise to the list of exercises for the user
                 //TODO add a toast for the new exercise being created
                 Intent goToExerciseOptionsIntent = new Intent(ExerciseEditActivity.this, ExerciseListActivity.class);

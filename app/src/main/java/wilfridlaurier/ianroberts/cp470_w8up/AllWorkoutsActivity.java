@@ -96,6 +96,8 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         DatabaseReference rootRef = database.getReference();
         DatabaseReference workoutsReference = rootRef.child("users").child(userID).child("userWorkouts");
 
+        System.out.println("workoutID: "+workoutsReference.toString());
+
         userWorkouts = new ArrayList<>();
 
         // Used for creating default workouts
@@ -139,8 +141,10 @@ public class AllWorkoutsActivity extends AppCompatActivity {
                 userWorkouts = new ArrayList<>();
                 adapter = new WorkoutsAdapter(getApplicationContext(), 0, userWorkouts);
                 workoutsListView.setAdapter(adapter);
+                System.out.println("snapshot: "+snapshot.toString());
                 for (DataSnapshot workout : snapshot.getChildren()) {
-                    userWorkouts.add(workout.getValue(Workout.class));
+                    Workout temp = workout.getValue(Workout.class);
+                    userWorkouts.add(temp);
                 }
                 adapter.notifyDataSetChanged();
             }

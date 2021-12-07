@@ -18,6 +18,7 @@ package wilfridlaurier.ianroberts.cp470_w8up;
  */
 
 public class SetRep {
+    String setRepID = "";
     int sets = 0;
     int reps = 0;
     int weight = 0;
@@ -35,6 +36,11 @@ public class SetRep {
     }
 
     // Set methods for the SetRep class
+
+    public void setSetRepID(String setRepID) {
+        this.setRepID = setRepID;
+    }
+
     public void setSets(int sets) {
         this.sets = sets;
     }
@@ -48,6 +54,11 @@ public class SetRep {
     }
 
     //Get methods for the SetRep class
+
+    public String getSetRepID() {
+        return setRepID;
+    }
+
     public int getSets() {
         return sets;
     }

@@ -52,7 +52,6 @@ public class WorkoutViewActivity extends AppCompatActivity {
     String workoutID;
     String createdWorkoutID;
 
-    Workout userWorkout = new Workout();
     ArrayList<Exercise> userExercises;
 
     ExercisesAdapter adapter;
@@ -71,6 +70,7 @@ public class WorkoutViewActivity extends AppCompatActivity {
         if (intent != null) {
             if (intent.hasExtra("workoutID")) {
                 workoutID = (String) intent.getExtras().get("workoutID");
+                System.out.println("workoutID: "+workoutID);
             }
             if (intent.hasExtra("createdWorkoutID")) {
                 createdWorkoutID = (String) intent.getExtras().get("createdWorkoutID");
@@ -82,16 +82,22 @@ public class WorkoutViewActivity extends AppCompatActivity {
         userID = fAuth.getCurrentUser().getUid();
 
         DatabaseReference rootRef = database.getReference();
-        DatabaseReference workoutReference = rootRef.child("users").child(userID).child("userWorkouts").child(workoutID);
+        DatabaseReference exercisesReference = rootRef.child("users").child(userID).child("userWorkouts").child(workoutID).child("exerciseList");
 
-        workoutReference.addValueEventListener(new ValueEventListener() {
+        System.out.println("workoutID: "+exercisesReference.toString());
+
+        exercisesReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //DataSnapshot workout = snapshot.getChildren();
-                userWorkout = snapshot.getValue(Workout.class);
-                System.out.println(userWorkout.getWorkoutID());
-                System.out.println(userWorkout.getWorkoutName());
-                System.out.println(userWorkout.getNumberOfExercises());
+                userExercises = new ArrayList<>();
+                adapter = new ExercisesAdapter(getApplicationContext(), 0, userExercises);
+                exercisesListView.setAdapter(adapter);
+                System.out.println("snapshot: "+snapshot.toString());
+                for (DataSnapshot exercise : snapshot.getChildren()) {
+                    Exercise temp =exercise.getValue(Exercise.class);
+                    userExercises.add(temp);
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -99,41 +105,6 @@ public class WorkoutViewActivity extends AppCompatActivity {
                 Log.w(ACTIVITY_NAME, "Could not get user workout", error.toException());
             }
         });
-
-        userExercises = userWorkout.getExerciseList();
-        for(Exercise exercise : userExercises) {
-            Log.i(ACTIVITY_NAME, exercise.getExerciseName());
-        }
-        adapter = new ExercisesAdapter(getApplicationContext(), 0, userExercises);
-        exercisesListView.setAdapter(adapter);
-
-
-//        DatabaseReference exercisesReference = rootRef.child("users").child(userID).child("userWorkouts").child(workoutID).child("exerciseList");
-//
-//        exercisesReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                userExercises = new ArrayList<>();
-//                adapter = new ExercisesAdapter(getApplicationContext(), 0, userWorkout.getExerciseList());
-//                exercisesListView.setAdapter(adapter);
-//                for (DataSnapshot exercise : snapshot.getChildren()) {
-//                    userExercises.add(exercise.getValue(Exercise.class));
-//                }
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.w(ACTIVITY_NAME, "Could not get user workouts", error.toException());
-//            }
-//        });
-
-//        for(Exercise exercise : userExercises) {
-//            Log.i(ACTIVITY_NAME, exercise.getExerciseName());
-//        }
-//        adapter = new ExercisesAdapter(getApplicationContext(), 0, userExercises);
-//        exercisesListView.setAdapter(adapter);
-
 
         exerciseSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -174,9 +145,6 @@ public class WorkoutViewActivity extends AppCompatActivity {
                 //TODO add logic at create exercise to check if it is adding exercise to a specific workout or just the list as a whole
             }
         });
-
-        adapter = new ExercisesAdapter(getApplicationContext(),0,userExercises);
-        exercisesListView.setAdapter(adapter);
 
         exercisesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

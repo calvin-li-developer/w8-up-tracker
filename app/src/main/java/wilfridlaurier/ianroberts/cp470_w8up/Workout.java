@@ -3,6 +3,7 @@ package wilfridlaurier.ianroberts.cp470_w8up;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /*
 
@@ -36,7 +37,8 @@ import java.util.Date;
 public class Workout {
     String workoutID = "";
     String workoutName = "";
-    ArrayList<Exercise> exerciseList = new ArrayList<>();
+//    ArrayList<Exercise> exerciseList = new ArrayList<>();
+    HashMap<String,Exercise> exerciseList = new HashMap<>();
     Boolean isPinned = false;
     Date createdDate = new Date();
     Date lastModified = new Date();
@@ -73,12 +75,8 @@ public class Workout {
         lastModified = new Date();
     }
 
-    public void setExerciseList(ArrayList<Exercise> exerciseList) {
-        ArrayList<Exercise> temp = new ArrayList<>();
-        for (Exercise e:exerciseList){
-            temp.add(e);
-        }
-        this.exerciseList = temp;
+    public void setExerciseList(HashMap<String,Exercise> exerciseList) {
+        this.exerciseList = exerciseList;
     }
 
     // Get methods for the workout class
@@ -91,7 +89,7 @@ public class Workout {
         return workoutName;
     }
 
-    public ArrayList<Exercise> getExerciseList() {
+    public HashMap<String,Exercise> getExerciseList() {
         return exerciseList;
     }
 
@@ -112,23 +110,23 @@ public class Workout {
     }
 
     // Additional Methods
-    public Boolean addExercise(Exercise newExercise){
-        if (!this.exerciseList.contains(newExercise)) {
-            this.exerciseList.add(newExercise);
-            lastModified = new Date();
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean removeExercise(Exercise exercise){
-        if (this.exerciseList.contains(exercise)) {
-            this.exerciseList.remove(exercise);
-            lastModified = new Date();
-            return true;
-        }
-        return false;
-    }
+//    public Boolean addExercise(Exercise newExercise){
+//        if (!this.exerciseList.contains(newExercise)) {
+//            this.exerciseList.add(newExercise);
+//            lastModified = new Date();
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public Boolean removeExercise(Exercise exercise){
+//        if (this.exerciseList.contains(exercise)) {
+//            this.exerciseList.remove(exercise);
+//            lastModified = new Date();
+//            return true;
+//        }
+//        return false;
+//    }
 
     public int getNumberOfExercises() {
         return exerciseList.size();

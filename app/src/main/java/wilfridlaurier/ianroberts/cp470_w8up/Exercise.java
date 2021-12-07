@@ -3,6 +3,7 @@ package wilfridlaurier.ianroberts.cp470_w8up;
 import android.media.Image;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 /*
@@ -31,27 +32,33 @@ import java.util.Set;
 public class Exercise {
     String exerciseID = "";
     String exerciseName = "";
-    ArrayList<SetRep> setRepConfigs = new ArrayList<>();
+//    ArrayList<SetRep> setRepConfigs = new ArrayList<>();
+    HashMap<String,SetRep> setRepConfigs = new HashMap<>();
     String muscleGroupCategory;
 
     // TODO sort out how to do images for exercises
 
     public Exercise(){
         this.exerciseName = "";
-        this.setRepConfigs = new ArrayList<SetRep>();
+        this.setRepConfigs = new HashMap<String,SetRep>();
         this.muscleGroupCategory = "";
     }
+    public Exercise(String exerciseName, String muscleGroupCategory) {
+        this.exerciseName = exerciseName;
+        this.muscleGroupCategory = muscleGroupCategory;
+    }
+//    public Exercise(String exerciseName, SetRep setRep, String muscleGroupCategory){
+//        this.exerciseName = exerciseName;
+//        this.setRepConfigs.add(setRep);
+//        this.muscleGroupCategory = muscleGroupCategory;
+//    }
+//    public Exercise(String exerciseName, SetRep setRep, String muscleGroupCategory,Image exerciseImage){
+//        this.exerciseName = exerciseName;
+//        this.setRepConfigs.add(setRep);
+//        this.muscleGroupCategory = muscleGroupCategory;
+//    }
 
-    public Exercise(String exerciseName, SetRep setRep, String muscleGroupCategory){
-        this.exerciseName = exerciseName;
-        this.setRepConfigs.add(setRep);
-        this.muscleGroupCategory = muscleGroupCategory;
-    }
-    public Exercise(String exerciseName, SetRep setRep, String muscleGroupCategory,Image exerciseImage){
-        this.exerciseName = exerciseName;
-        this.setRepConfigs.add(setRep);
-        this.muscleGroupCategory = muscleGroupCategory;
-    }
+
 
     // Set methods for Exercise class
 
@@ -68,7 +75,7 @@ public class Exercise {
         this.muscleGroupCategory = muscleGroupCategory;
     }
 
-    public void setSetRepConfigs(ArrayList<SetRep> setRepConfigs) {
+    public void setSetRepConfigs(HashMap<String,SetRep> setRepConfigs) {
         this.setRepConfigs = setRepConfigs;
     }
 
@@ -83,7 +90,7 @@ public class Exercise {
         return exerciseName;
     }
 
-    public ArrayList<SetRep> getSetRepConfigs() {
+    public HashMap<String,SetRep> getSetRepConfigs() {
         return setRepConfigs;
     }
 
@@ -92,21 +99,21 @@ public class Exercise {
     }
 
 
-    // Additional methods
-
-    public Boolean addSetRep(SetRep newSetRep){
-        if (!this.setRepConfigs.contains(newSetRep)) {
-            this.setRepConfigs.add(newSetRep);
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean removeSetRep(SetRep setRep){
-        if (this.setRepConfigs.contains(setRep)) {
-            this.setRepConfigs.remove(setRep);
-            return true;
-        }
-        return false;
-    }
+//    // Additional methods
+//
+//    public Boolean addSetRep(SetRep newSetRep){
+//        if (!this.setRepConfigs.contains(newSetRep)) {
+//            this.setRepConfigs.add(newSetRep);
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public Boolean removeSetRep(SetRep setRep){
+//        if (this.setRepConfigs.contains(setRep)) {
+//            this.setRepConfigs.remove(setRep);
+//            return true;
+//        }
+//        return false;
+//    }
 }

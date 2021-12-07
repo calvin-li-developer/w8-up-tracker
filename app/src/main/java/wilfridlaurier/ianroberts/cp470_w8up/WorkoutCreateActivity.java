@@ -63,6 +63,7 @@ public class WorkoutCreateActivity extends AppCompatActivity {
         workoutCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO update the muscleGroup array list to be referenced properly in the database with key id
                 ArrayList<String> muscleGroups = new ArrayList<>();
                 muscleGroups.add(muscleGroupSpinner.getSelectedItem().toString());
                 Workout newWorkout = new Workout(workoutName.getText().toString(),muscleGroups,isPinnedSwitch.isChecked());
