@@ -40,20 +40,24 @@ public class WeightProgressChartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Variables used for updating chart details
+        String currMuscleGroup;
+        String currExercise;
+        String curr;
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weight_progress_chart);
 
         // Dropdown spinner set up
         Spinner progressSpinner = findViewById(R.id.progressSpinner);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
-
 
         // Firebase object to pull categories and exercises
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Storing muscle categories from Firebase into ArrayList
-        List<String> muscleGroupArrayList = new ArrayList<>();
-
+        ArrayList<String> muscleGroupArrayList = new ArrayList<>();
+        muscleGroupArrayList.add(" ");  // Causes String ArrayList to instantiate as a proper Array and charts to be blank initiallu
         db.collection("workouts")
                 .document("3VTC59DxTQIyYwfZVccT")
                 .get()
@@ -63,7 +67,7 @@ public class WeightProgressChartActivity extends AppCompatActivity {
                                                 if (docSnapshot.exists()) {
                                                     ArrayList<String> group = (ArrayList<String>) docSnapshot.get("muscleGroupCategories");
                                                     for (String str : group) {
-                                                        muscleGroupArrayList.add(str.toString());
+                                                        muscleGroupArrayList.add(str.trim());
                                                     }
                                                 }
                                             }
@@ -72,9 +76,8 @@ public class WeightProgressChartActivity extends AppCompatActivity {
                                         }
                  );
 
-
-
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, muscleGroupArrayList);
+        // Setting spinner adapter with muscleGroupArrayList
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, muscleGroupArrayList);
         progressSpinner.setAdapter(spinnerAdapter);
 
         // Line Chart Set up
