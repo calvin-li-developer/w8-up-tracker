@@ -67,48 +67,48 @@ public class ExerciseCreateActivity extends AppCompatActivity {
         DatabaseReference rootRef = database.getReference();
         DatabaseReference exercisesReference = rootRef.child("users").child(userID);
 // BELOW IS USED TO INITIALIZE SOME TEST EXERCISES AND SETREPS AND PUT THEM IN THE DATABASE
-        SetRep testSetRepOne = new SetRep(3,10,350);
-        Exercise testExerciseOne = new Exercise("ExerciseTestOne","Chest");
-
-        SetRep testSetRepTwo = new SetRep(3,10,350);
-        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo","Back");
-
-        String exerciseKey = exercisesReference.push().getKey();
-
-        Map<String,Object> childUpdates = new HashMap<>();
-        testExerciseOne.setExerciseID(exerciseKey);
-        childUpdates.put("/userExercises/" + exerciseKey, testExerciseOne);
-        childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey, testExerciseOne);
-
-        exercisesReference.updateChildren(childUpdates);
-
-        String setRepKey = exercisesReference.push().getKey();
-
-        childUpdates = new HashMap<>();
-        testSetRepOne.setSetRepID(setRepKey);
-        childUpdates.put("/userExercises/" + exerciseKey + "/setRepConfigs/" + setRepKey, testSetRepOne);
-        childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey + "/setRepConfigs/" + setRepKey, testSetRepOne);
-
-        exercisesReference.updateChildren(childUpdates);
-
-        exerciseKey = exercisesReference.push().getKey();
-
-        childUpdates = new HashMap<>();
-        testExerciseTwo.setExerciseID(exerciseKey);
-        System.out.println(testExerciseTwo.getExerciseName() + " " + testExerciseTwo.getMuscleGroupCategory());
-        childUpdates.put("/userExercises/" + exerciseKey, testExerciseTwo);
-        childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey, testExerciseTwo);
-
-        exercisesReference.updateChildren(childUpdates);
-
-        setRepKey = exercisesReference.push().getKey();
-
-        childUpdates = new HashMap<>();
-        testSetRepTwo.setSetRepID(setRepKey);
-        childUpdates.put("/userExercises/" + exerciseKey + "/setRepConfigs/" + setRepKey, testSetRepTwo);
-        childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey + "/setRepConfigs/" + setRepKey, testSetRepTwo);
-
-        exercisesReference.updateChildren(childUpdates);
+//        SetRep testSetRepOne = new SetRep(3,10,350);
+//        Exercise testExerciseOne = new Exercise("ExerciseTestOne","Chest");
+//
+//        SetRep testSetRepTwo = new SetRep(3,10,350);
+//        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo","Back");
+//
+//        String exerciseKey = exercisesReference.push().getKey();
+//
+//        Map<String,Object> childUpdates = new HashMap<>();
+//        testExerciseOne.setExerciseID(exerciseKey);
+//        childUpdates.put("/userExercises/" + exerciseKey, testExerciseOne);
+//        childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey, testExerciseOne);
+//
+//        exercisesReference.updateChildren(childUpdates);
+//
+//        String setRepKey = exercisesReference.push().getKey();
+//
+//        childUpdates = new HashMap<>();
+//        testSetRepOne.setSetRepID(setRepKey);
+//        childUpdates.put("/userExercises/" + exerciseKey + "/setRepConfigs/" + setRepKey, testSetRepOne);
+//        childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey + "/setRepConfigs/" + setRepKey, testSetRepOne);
+//
+//        exercisesReference.updateChildren(childUpdates);
+//
+//        exerciseKey = exercisesReference.push().getKey();
+//
+//        childUpdates = new HashMap<>();
+//        testExerciseTwo.setExerciseID(exerciseKey);
+//        System.out.println(testExerciseTwo.getExerciseName() + " " + testExerciseTwo.getMuscleGroupCategory());
+//        childUpdates.put("/userExercises/" + exerciseKey, testExerciseTwo);
+//        childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey, testExerciseTwo);
+//
+//        exercisesReference.updateChildren(childUpdates);
+//
+//        setRepKey = exercisesReference.push().getKey();
+//
+//        childUpdates = new HashMap<>();
+//        testSetRepTwo.setSetRepID(setRepKey);
+//        childUpdates.put("/userExercises/" + exerciseKey + "/setRepConfigs/" + setRepKey, testSetRepTwo);
+//        childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey + "/setRepConfigs/" + setRepKey, testSetRepTwo);
+//
+//        exercisesReference.updateChildren(childUpdates);
 
 
         // TODO delete once you check to see if you need it

@@ -91,6 +91,9 @@ public class ExerciseViewActivity extends AppCompatActivity {
 
         System.out.println("workoutID: "+exerciseReference.toString());
 
+        // TODO siwtch the listview in this layout to be a listview of their progression for that exercise
+        // TODO add below the list a button to add a new setrep object with an updated weight only
+
         exerciseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
