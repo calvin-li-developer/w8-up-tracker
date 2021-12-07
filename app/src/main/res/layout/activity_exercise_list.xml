@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CreateCustomExerciseActivity">
+    tools:context=".ExerciseListActivity">
 
     <TextView
-        android:text="This is where you will create a custom exercise."
+        android:text="This is where you will choose from a list of grouped exercises to add to your workout."
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
-        android:id="@+id/exerciseOptionsButton2"
-        android:text="Exercise Options"
+        android:id="@+id/createCustomExerciseButton"
+        android:text="Create Custome Exercise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

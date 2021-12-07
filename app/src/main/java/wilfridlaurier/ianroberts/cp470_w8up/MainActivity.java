@@ -1,12 +1,10 @@
 package wilfridlaurier.ianroberts.cp470_w8up;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void openWorkouts(){
-        Intent wo = new Intent(this, WorkoutsActivity.class);
+        Intent wo = new Intent(this, AllWorkoutsActivity.class);
         startActivity(wo);
     }
     public void openWeightTracker(){
