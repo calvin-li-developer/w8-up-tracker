@@ -126,7 +126,10 @@ public class ExerciseCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SetRep newSetRep = new SetRep(Integer.parseInt(exerciseSets.getText().toString()),Integer.parseInt(exerciseReps.getText().toString()), (Integer.parseInt(exerciseWeight.getText().toString())));
-                Exercise newExercise = new Exercise(exerciseName.getText().toString(),(String) muscleGroupSpinner.getSelectedItem());
+                String eName = exerciseName.getText().toString();
+                String eMuscle = muscleGroupSpinner.getSelectedItem().toString();
+                System.out.println("New Exercise Name :"+eName+"New Exercise Muscle: "+eMuscle);
+                Exercise newExercise = new Exercise(eName,eMuscle);
                 //TODO add this new exercise to the list of exercises for the user
                 //TODO add a toast for the new exercise being created
 
@@ -143,6 +146,8 @@ public class ExerciseCreateActivity extends AppCompatActivity {
                 newExercise.setExerciseID(exerciseKey);
                 childUpdates.put("/userExercises/" + exerciseKey, newExercise);
                 childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey, newExercise);
+
+                workoutsReference.updateChildren(childUpdates);
 
                 String setRepKey = workoutsReference.push().getKey();
 
