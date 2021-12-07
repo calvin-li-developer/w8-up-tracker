@@ -94,7 +94,7 @@ public class WorkoutViewActivity extends AppCompatActivity {
                 exercisesListView.setAdapter(adapter);
                 System.out.println("snapshot: "+snapshot.toString());
                 for (DataSnapshot exercise : snapshot.getChildren()) {
-                    Exercise temp =exercise.getValue(Exercise.class);
+                    Exercise temp = exercise.getValue(Exercise.class);
                     userExercises.add(temp);
                 }
                 adapter.notifyDataSetChanged();
@@ -151,8 +151,8 @@ public class WorkoutViewActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Exercise selectedExercise = (Exercise) (exercisesListView.getItemAtPosition(i));
                 Intent showExercise = new Intent(getApplicationContext(),ExerciseViewActivity.class);
-                //TODO switch this to getExerciseID()
-                showExercise.putExtra("exerciseID",selectedExercise.getExerciseName());
+                showExercise.putExtra("exerciseID",selectedExercise.getExerciseID());
+                showExercise.putExtra("workoutID",workoutID);
                 startActivity(showExercise);
             }
         });

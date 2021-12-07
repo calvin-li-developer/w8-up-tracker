@@ -63,7 +63,7 @@ public class SetRep {
         return sets;
     }
 
-    public int getSReps() {
+    public int getReps() {
         return reps;
     }
 
