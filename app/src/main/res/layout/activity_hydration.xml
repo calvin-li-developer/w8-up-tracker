@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_hydration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HydrationActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/waterGoal"
         android:layout_width="100dp"
         android:layout_height="62dp"
         android:text="SET GOAL"
@@ -20,6 +21,7 @@
         app:layout_constraintVertical_bias="0.674" />
 
     <Button
+        android:id="@+id/addWater"
         android:layout_width="100dp"
         android:layout_height="62dp"
         android:text="ADD WATER"
@@ -33,17 +35,17 @@
         app:layout_constraintVertical_bias="0.575" />
 
     <EditText
-        android:id="@+id/waterText"
-        android:layout_width="134dp"
-        android:layout_height="52dp"
-        android:text="1000mL"
+        android:id="@+id/goalText"
+        android:layout_width="83dp"
+        android:layout_height="49dp"
+        android:text="1000"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintHorizontal_bias="0.335"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.678" />
+        app:layout_constraintVertical_bias="0.68" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -58,7 +60,7 @@
         app:srcCompat="?android:attr/textSelectHandle" />
 
     <ProgressBar
-        android:id="@+id/determinateBar"
+        android:id="@+id/waterBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="215dp"
         android:layout_height="24dp"
@@ -70,17 +72,42 @@
         app:layout_constraintVertical_bias="0.455" />
 
     <EditText
-        android:id="@+id/goalText"
-        android:layout_width="133dp"
-        android:layout_height="52dp"
-        android:text="200mL"
+        android:id="@+id/waterText"
+        android:layout_width="83dp"
+        android:layout_height="49dp"
+        android:text="0"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.352"
+        app:layout_constraintHorizontal_bias="0.335"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.581" />
+        app:layout_constraintVertical_bias="0.589" />
 
+    <TextView
+        android:id="@+id/unit"
+        android:layout_width="36dp"
+        android:layout_height="37dp"
+        android:text="mL"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.596" />
+
+    <TextView
+        android:id="@+id/unit2"
+        android:layout_width="36dp"
+        android:layout_height="37dp"
+        android:text="mL"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.685" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

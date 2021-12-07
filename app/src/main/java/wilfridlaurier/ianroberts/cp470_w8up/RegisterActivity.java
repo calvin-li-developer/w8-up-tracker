@@ -25,8 +25,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Document;
 
@@ -116,8 +114,8 @@ public class RegisterActivity extends AppCompatActivity {
                     userData.put("fullName",fullName);
                     userData.put("email",email);
 
-                    DatabaseReference myRef = database.getReference("users/" + userID);
-                    myRef.setValue(userData);
+                    DatabaseReference userIDReference = database.getReference("users/" + userID);
+                    userIDReference.setValue(userData);
 
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }

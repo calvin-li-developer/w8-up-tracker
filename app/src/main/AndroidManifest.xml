@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="wilfridlaurier.ianroberts.cp470_w8up">
+    package="wilfridlaurier.ianroberts.cp470_w8up" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,10 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CP470_W8UP">
+      
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
 
+        <activity
+            android:name=".SetReminderActivity"
+            android:exported="true"
+            android:parentActivityName=".ReminderActivity"/>
+        <activity
+            android:name=".ReminderActivity"
+            android:exported="true" />
         <activity
             android:name=".HydrationActivity"
             android:exported="true"
@@ -64,12 +72,11 @@
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true"
+            android:exported="true" 
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name=".AllWorkoutsActivity"
             android:exported="true" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="true"
@@ -85,6 +92,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 
 </manifest>
