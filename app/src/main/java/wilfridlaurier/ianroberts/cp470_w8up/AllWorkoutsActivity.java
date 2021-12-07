@@ -1,17 +1,41 @@
 package wilfridlaurier.ianroberts.cp470_w8up;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 // TODO Update naming conventions
 
@@ -27,12 +51,13 @@ import java.util.ArrayList;
 
 /*
 
-    This is the Workouts Activity. It will present the user with a list of there custom workouts.
+    This is the Workouts Activity. It will present the user with a list of their custom workouts.
     In addition it will:
         - Give the user the option to create a new custom workout that will send them to the
-        CreateNewRoutineActivity
-        - Give the user the option to select a workout which will send them to the
-
+        WorkoutCreateActivity
+        - Give the user the option to select a workout which will send them to the WorkoutViewActivity
+        - Give them the option to delete a workout
+        - The user will be able to search these workouts as well as filter by muscle group
 
  */
 
@@ -41,13 +66,18 @@ public class AllWorkoutsActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME = "WorkoutsActivity";
 
     SearchView workoutsSearchView;
-    ImageButton wnewWorkoutButton;
+    ImageButton newWorkoutButton;
     ImageButton filterWorkoutsButton;
     ListView workoutsListView;
-    ArrayAdapter adapter;
+    WorkoutsAdapter adapter;
     // TODO update this to be a list of workout objects?
     // ArrayList<String> list1;
     ArrayList<Workout> userWorkouts;
+
+    FirebaseAuth fAuth;
+    String userID;
+
+    String filterOption = "ALL";
 
 
     @Override
@@ -55,26 +85,76 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_workouts);
         workoutsSearchView = findViewById(R.id.searchWorkoutsSearchView);
-        wnewWorkoutButton = findViewById(R.id.newWorkoutButton);
+        newWorkoutButton = findViewById(R.id.newWorkoutButton);
         filterWorkoutsButton = findViewById(R.id.filterWorkoutsButton);
         workoutsListView = findViewById(R.id.workoutsListView);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        userID = fAuth.getCurrentUser().getUid();
+
+        DatabaseReference rootRef = database.getReference();
+        DatabaseReference workoutsReference = rootRef.child("users").child(userID).child("userWorkouts");
+
+        System.out.println("workoutID: "+workoutsReference.toString());
+
         userWorkouts = new ArrayList<>();
-        // TODO get the list of workouts for the user from the database and put it into the arraylist
 
-        // Below is test code for searching and filtering the list
-//        list1 = new ArrayList<>();
+        // Used for creating default workouts
+//        ArrayList<String> muscleGroupOne = new ArrayList<>();
+//        muscleGroupOne.add("Chest");
+//        muscleGroupOne.add("Arms");
+//        Workout testWorkoutOne = new Workout("WorkoutTestOne",muscleGroupOne);
+//        SetRep testSetRepOne = new SetRep(3,10,350);
+//        Exercise testExerciseOne = new Exercise("ExerciseTestOne",testSetRepOne,"Chest");
+//        testWorkoutOne.addExercise(testExerciseOne);
 //
-//        list1.add("Monday");
-//        list1.add("Tuesday");
-//        list1.add("Wednesday");
-//        list1.add("Thursday");
-//        list1.add("Friday");
-//        list1.add("Saturday");
-//        list1.add("Sunday");
+//        ArrayList<String> muscleGroupTwo = new ArrayList<>();
+//        muscleGroupTwo.add("Back");
+//        muscleGroupTwo.add("Arms");
+//        Workout testWorkoutTwo = new Workout("WorkoutTestTwo",muscleGroupTwo);
+//        SetRep testSetRepTwo = new SetRep(3,10,350);
+//        Exercise testExerciseTwo = new Exercise("ExerciseTestTwo",testSetRepTwo,"Back");
+//        testWorkoutTwo.addExercise(testExerciseTwo);
+//
+//        userWorkouts.add(testWorkoutOne);
+//        userWorkouts.add(testWorkoutTwo);
+//
+//        for(Workout workout: userWorkouts) {
+//            String key = workoutsReference.push().getKey();
+//
+//            Map<String,Object> childUpdates = new HashMap<>();
+//            workout.setWorkoutID(key);
+//            childUpdates.put("/" + key, workout);
+//            //childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+//
+//            workoutsReference.updateChildren(childUpdates);
+//        }
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,userWorkouts);
-        workoutsListView.setAdapter(adapter);
+//        for(Workout workout: userWorkouts){
+//            workoutsReference.push().setValue(workout);
+//        }
+
+        workoutsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userWorkouts = new ArrayList<>();
+                adapter = new WorkoutsAdapter(getApplicationContext(), 0, userWorkouts);
+                workoutsListView.setAdapter(adapter);
+                System.out.println("snapshot: "+snapshot.toString());
+                for (DataSnapshot workout : snapshot.getChildren()) {
+                    Workout temp = workout.getValue(Workout.class);
+                    userWorkouts.add(temp);
+                }
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(ACTIVITY_NAME, "Could not get user workouts", error.toException());
+            }
+        });
+
+
         workoutsSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -83,12 +163,29 @@ public class AllWorkoutsActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                ArrayList<Workout> filterWorkouts = new ArrayList<>();
+                for(Workout workout : userWorkouts){
+                    if(workout.getWorkoutName().toLowerCase().contains(newText.toLowerCase())){
+                        if(filterOption.equals("ALL")) {
+                            filterWorkouts.add(workout);
+                        }
+                        else{
+                            for(String muscleGroup : workout.getMuscleGroupCategories()){
+                                if(muscleGroup.toLowerCase().equals(filterOption.toLowerCase())){
+                                    filterWorkouts.add(workout);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                adapter = new WorkoutsAdapter(getApplicationContext(),0,filterWorkouts);
+                workoutsListView.setAdapter(adapter);
                 return false;
             }
         });
 
-        wnewWorkoutButton.setOnClickListener(new View.OnClickListener() {
+        newWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(ACTIVITY_NAME, "User clicked add new workout");
@@ -97,6 +194,18 @@ public class AllWorkoutsActivity extends AppCompatActivity {
             }
         });
 
+        adapter = new WorkoutsAdapter(getApplicationContext(),0,userWorkouts);
+        workoutsListView.setAdapter(adapter);
+
+        workoutsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Workout selectedWorkout = (Workout) (workoutsListView.getItemAtPosition(i));
+                Intent showWorkout = new Intent(getApplicationContext(),WorkoutViewActivity.class);
+                showWorkout.putExtra("workoutID",selectedWorkout.getWorkoutID());
+                startActivity(showWorkout);
+            }
+        });
     }
 
     @Override
@@ -129,45 +238,23 @@ public class AllWorkoutsActivity extends AppCompatActivity {
         Log.i(ACTIVITY_NAME, "In onDestroy()");
     }
 
-    // TODO adapt this to work correctly for workouts
-//    private class WorkoutsAdapter extends ArrayAdapter<String>{
-//        public WorkoutsAdapter(Context ctx) {
-//            super(ctx, 0);
-//        }
-//
-//        public int getCount() {
-//            return userWorkouts.size();
-//        }
-//
-//        // TODO update this so that you can search by something other than position?
-//        public String getItem(int position) {
-//            return userWorkouts.get(position);
-//        }
-//
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            LayoutInflater inflater = WorkoutsActivity.this.getLayoutInflater();
-//
-//            //This will recreate your View that you made in the resource file. If the position is an even number (position%2 == 0), then inflate chat_row_incoming, else inflate chat_row_outgoing:
-//
-//            View result = null ;
-//
-//            // TODO maybe only need one result statment because we are not changing the layout back and forth?
-//            if(position%2 == 0)
-//                // TODO create layout for how we want the workouts to look
-//                //result = inflater.inflate(R.layout.chat_row_incoming, null);
-//
-//            else
-//
-//                //result = inflater.inflate(R.layout.chat_row_outgoing, null);
-//
-//            //From the resulting view, get the TextView which holds the string message:
-//
-//            // TODO update this / maybe just remove because we are not dynamically updating these in realtime
-//            //TextView message = (TextView)result.findViewById(R.id.message_text);
-//            message.setText(getItem(position)); // get the string at position
-//            return result;
-//        }
-//
-//
-//    }
+    private class WorkoutsAdapter extends ArrayAdapter<Workout>{
+        public WorkoutsAdapter(Context ctx,int resource, ArrayList<Workout> workoutsList) {
+            super(ctx, resource,workoutsList);
+        }
+
+        @Override
+        public View getView(int position, View result, ViewGroup parent) {
+            Workout workout = getItem(position);
+
+            if(result == null){
+                result = LayoutInflater.from(getContext()).inflate(R.layout.activity_all_workouts_list_item,parent,false);
+            }
+
+            TextView workoutName = (TextView) result.findViewById(R.id.workoutName);
+            workoutName.setText(workout.getWorkoutName());
+
+            return result;
+        }
+    }
 }
