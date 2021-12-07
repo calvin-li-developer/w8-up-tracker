@@ -114,8 +114,8 @@ public class RegisterActivity extends AppCompatActivity {
                     userData.put("fullName",fullName);
                     userData.put("email",email);
 
-                    DatabaseReference myRef = database.getReference("users/" + userID);
-                    myRef.setValue(userData);
+                    DatabaseReference userIDReference = database.getReference("users/" + userID);
+                    userIDReference.setValue(userData);
 
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }
