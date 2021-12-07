@@ -52,12 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         lPassword.setText("123456");
         progressBar = findViewById(R.id.progressBarLogin);
 
-        lRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
-            }
-        });
+        lRegisterBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),RegisterActivity.class)));
     }
 
     public void onLoginBtnClick(View v)
