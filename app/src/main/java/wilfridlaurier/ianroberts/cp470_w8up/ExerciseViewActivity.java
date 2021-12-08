@@ -23,7 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 
 /*
@@ -129,14 +131,14 @@ public class ExerciseViewActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 exerciseSetReps = new ArrayList<>();
-                adapter = new SetRepsAdapter(getApplicationContext(), 0, exerciseSetReps);
+                adapter = new SetRepsAdapter(getApplicationContext(), 0, exerciseSetReps,false);
                 setRepListView.setAdapter(adapter);
                 System.out.println("snapshot: "+snapshot.toString());
                 for (DataSnapshot setRep : snapshot.getChildren()) {
                     SetRep temp = setRep.getValue(SetRep.class);
                     exerciseSetReps.add(temp);
                 }
-                setRepSpinner.setAdapter(new SetRepsAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,exerciseSetReps));
+                setRepSpinner.setAdapter(new SetRepsAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,exerciseSetReps,true));
                 adapter.notifyDataSetChanged();
             }
 
@@ -191,26 +193,63 @@ public class ExerciseViewActivity extends AppCompatActivity {
     }
 
     private class SetRepsAdapter extends ArrayAdapter<SetRep> {
-        public SetRepsAdapter(Context ctx, int resource, ArrayList<SetRep> setRepsList) {
+        Boolean isSpinner;
+        public SetRepsAdapter(Context ctx, int resource, ArrayList<SetRep> setRepsList, Boolean spinner) {
             super(ctx, resource,setRepsList);
+            this.isSpinner = spinner;
         }
 
         @Override
         public View getView(int position, View result, ViewGroup parent) {
             SetRep setRep = getItem(position);
+            WeightProgress weightProgress =  setRep.getWeightProgress();
+            int weight = weightProgress.getWeight();
+            Date date = weightProgress.getProgressDate();
+            SimpleDateFormat formattedDate = new SimpleDateFormat("MM/dd/yyyy");
 
-            if(result == null){
-                result = LayoutInflater.from(getContext()).inflate(R.layout.activity_exercise_view_list_item,parent,false);
+            if(isSpinner){
+                if (result == null) {
+                    result = LayoutInflater.from(getContext()).inflate(R.layout.activity_exercise_view_spinner_item, parent, false);
+                }
+                TextView setRepsTextView = (TextView) result.findViewById(R.id.setRepsText);
+                setRepsTextView.setText(setRep.getSets() + "x" +setRep.getReps());
             }
-
-            TextView setAmount = (TextView) result.findViewById(R.id.setAmountText);
-            TextView repAmount = (TextView) result.findViewById(R.id.repAmountText);
-            TextView weightAmount = (TextView) result.findViewById(R.id.weightAmountText);
-            setAmount.setText(Integer.toString(setRep.getSets()));
-            repAmount.setText(Integer.toString(setRep.getReps()));
-            weightAmount.setText(Integer.toString(setRep.getWeight()));
-
+            else {
+                if (result == null) {
+                    result = LayoutInflater.from(getContext()).inflate(R.layout.activity_exercise_view_list_item, parent, false);
+                }
+                TextView weightAmountTextView = (TextView) result.findViewById(R.id.setCustomWeightAmount);
+                TextView dateTextView = (TextView) result.findViewById(R.id.setCustomDate);
+                weightAmountTextView.setText(Integer.toString(weight));
+                dateTextView.setText(formattedDate.format(date));
+            }
             return result;
         }
     }
+
+//    private class SpinnerAdapter extends ArrayAdapter<SetRep> {
+//        public SpinnerAdapter(Context ctx, int resource, ArrayList<SetRep> setRepsList) {
+//            super(ctx, resource,setRepsList);
+//        }
+//
+//        @Override
+//        public View getView(int position, View result, ViewGroup parent) {
+//            SetRep setRep = getItem(position);
+//            WeightProgress weightProgress =  setRep.getWeightProgress();
+//            int weight = weightProgress.getWeight();
+//            Date date = weightProgress.getProgressDate();
+//            SimpleDateFormat formattedDate = new SimpleDateFormat("MM/dd/yyyy");
+//
+//            if(result == null){
+//                result = LayoutInflater.from(getContext()).inflate(R.layout.activity_exercise_view_spinner_item,parent,false);
+//            }
+//
+//            TextView setRepsTextView = (TextView) result.findViewById(R.id.setRepsText);
+//            setRepsTextView.setText(setRep.getSets() + "x" +setRep.getReps());
+//
+//            return result;
+//        }
+//    }
+
+
 }
