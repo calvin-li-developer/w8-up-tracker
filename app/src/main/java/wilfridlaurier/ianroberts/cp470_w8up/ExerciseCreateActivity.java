@@ -41,6 +41,7 @@ public class ExerciseCreateActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     String userID;
     String workoutID;
+    Boolean createWorkoutCallBack;
 
 
     @Override
@@ -52,6 +53,9 @@ public class ExerciseCreateActivity extends AppCompatActivity {
         if (intent != null) {
             if (intent.hasExtra("workoutID")) {
                 workoutID = (String) intent.getExtras().get("workoutID");
+            }
+            if(intent.hasExtra("createWorkoutCallBack")){
+                createWorkoutCallBack = (Boolean) intent.getExtras().get("createWorkoutCallBack");
             }
         }
 
@@ -158,10 +162,22 @@ public class ExerciseCreateActivity extends AppCompatActivity {
 
                 workoutsReference.updateChildren(childUpdates);
 
-                Intent goBackToWorkoutViewIntent = new Intent(ExerciseCreateActivity.this, WorkoutViewActivity.class);
-                goBackToWorkoutViewIntent.putExtra("workoutID",workoutID);
-                goBackToWorkoutViewIntent.putExtra("exerciseCreated",exerciseKey);
-                startActivity(goBackToWorkoutViewIntent);
+
+                if(!createWorkoutCallBack){
+                    Intent goBackToWorkoutViewIntent = new Intent(ExerciseCreateActivity.this, WorkoutViewActivity.class);
+                    goBackToWorkoutViewIntent.putExtra("workoutID",workoutID);
+//                    goBackToWorkoutViewIntent.putExtra("exerciseCreated",exerciseKey);
+//                    goBackToWorkoutViewIntent.putExtra("exerciseName",exerciseKey);
+//                    goBackToWorkoutViewIntent.putExtra("exerciseMuscleGroup",exerciseKey);
+                    startActivity(goBackToWorkoutViewIntent);
+                }
+                else{
+                    Intent goBackToWorkoutCreateIntent = new Intent(ExerciseCreateActivity.this, WorkoutCreateActivity.class);
+                    goBackToWorkoutCreateIntent.putExtra("workoutID",workoutID);
+                    goBackToWorkoutCreateIntent.putExtra("exerciseCreated",exerciseKey);
+                    startActivity(goBackToWorkoutCreateIntent);
+                }
+
             }
         });
     }
