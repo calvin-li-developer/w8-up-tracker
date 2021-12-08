@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /*
@@ -48,6 +52,11 @@ public class ExerciseViewActivity extends AppCompatActivity {
     TextView exerciseMuscleGroup;
     Spinner setRepSpinner;
     ListView setRepListView;
+    EditText weightProgressEdit;
+    Button exerciseAddWeightProgressButton;
+    EditText setConfigEdit;
+    EditText repConfigEdit;
+    Button setRepConfigAddButton;
 
     String exerciseID;
     String workoutID;
@@ -73,6 +82,12 @@ public class ExerciseViewActivity extends AppCompatActivity {
         exerciseMuscleGroup = findViewById(R.id.exerciseMuscleGroupText);
         setRepSpinner = findViewById(R.id.exerciseSetRepsOptionsSpinner);
         setRepListView = findViewById(R.id.setRepsListView);
+        weightProgressEdit = findViewById(R.id.weightProgressEdit);
+        exerciseAddWeightProgressButton = findViewById(R.id.exerciseAddWeightProgressButton);
+        setConfigEdit = findViewById(R.id.setConfigEdit);
+        repConfigEdit = findViewById(R.id.repConfigEdit);
+        setRepConfigAddButton = findViewById(R.id.setRepConfigAddButton);
+
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -160,6 +175,59 @@ public class ExerciseViewActivity extends AppCompatActivity {
             }
         });
 
+        exerciseAddWeightProgressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WeightProgress newWeightProgress = new WeightProgress((Integer.parseInt(weightProgressEdit.getText().toString())), new Date());
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                fAuth = FirebaseAuth.getInstance();
+                userID = fAuth.getCurrentUser().getUid();
+
+                DatabaseReference rootRef = database.getReference();
+                DatabaseReference workoutsReference = rootRef.child("users").child(userID);
+
+                Map<String,Object> childUpdates = new HashMap<>();
+
+                String weightProgressKey = workoutsReference.push().getKey();
+
+                childUpdates = new HashMap<>();
+                newWeightProgress.setWeightProgressID(weightProgressKey);
+                childUpdates.put("/userExercises/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + (SetRep)setRepSpinner.getSelectedItem() + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
+                childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + (SetRep)setRepSpinner.getSelectedItem() + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
+
+                workoutsReference.updateChildren(childUpdates);
+            }
+        });
+
+        setRepConfigAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SetRep newSetRep = new SetRep(Integer.parseInt(setConfigEdit.getText().toString()),Integer.parseInt(repConfigEdit.getText().toString()));
+                //TODO add a toast for the new exercise being created
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                fAuth = FirebaseAuth.getInstance();
+                userID = fAuth.getCurrentUser().getUid();
+
+                DatabaseReference rootRef = database.getReference();
+                DatabaseReference workoutsReference = rootRef.child("users").child(userID);
+
+                Map<String,Object> childUpdates = new HashMap<>();
+
+                String setRepKey = workoutsReference.push().getKey();
+
+                childUpdates = new HashMap<>();
+                newSetRep.setSetRepID(setRepKey);
+                childUpdates.put("/userExercises/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + setRepKey, newSetRep);
+                childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + setRepKey, newSetRep);
+
+                workoutsReference.updateChildren(childUpdates);
+
+
+            }
+        });
+
 
     }
     @Override
@@ -212,7 +280,8 @@ public class ExerciseViewActivity extends AppCompatActivity {
                     result = LayoutInflater.from(getContext()).inflate(R.layout.activity_exercise_view_spinner_item, parent, false);
                 }
                 TextView setRepsTextView = (TextView) result.findViewById(R.id.setRepsText);
-                setRepsTextView.setText(setRep.getSets() + "x" +setRep.getReps());
+                String temp = setRep.getSets() + "x" +setRep.getReps();
+                setRepsTextView.setText(temp);
             }
             else {
                 if (result == null) {
@@ -223,6 +292,21 @@ public class ExerciseViewActivity extends AppCompatActivity {
                 weightAmountTextView.setText(Integer.toString(weight));
                 dateTextView.setText(formattedDate.format(date));
             }
+            return result;
+        }
+
+        @Override
+        public View getDropDownView(int position, View result, ViewGroup parent) {
+            SetRep setRep = getItem(position);
+
+            if (result == null) {
+                result = LayoutInflater.from(getContext()).inflate(R.layout.activity_exercise_view_spinner_item, parent, false);
+            }
+
+            TextView setRepsTextView = (TextView) result.findViewById(R.id.setRepsText);
+            String temp = setRep.getSets() + "x" +setRep.getReps();
+            setRepsTextView.setText(temp);
+
             return result;
         }
     }

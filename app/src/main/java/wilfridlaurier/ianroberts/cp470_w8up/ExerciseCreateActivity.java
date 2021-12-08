@@ -131,7 +131,7 @@ public class ExerciseCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WeightProgress newWeightProgress = new WeightProgress((Integer.parseInt(exerciseWeight.getText().toString())), new Date());
-                SetRep newSetRep = new SetRep(Integer.parseInt(exerciseSets.getText().toString()),Integer.parseInt(exerciseReps.getText().toString()),newWeightProgress);
+                SetRep newSetRep = new SetRep(Integer.parseInt(exerciseSets.getText().toString()),Integer.parseInt(exerciseReps.getText().toString()));
                 String eName = exerciseName.getText().toString();
                 String eMuscle = muscleGroupSpinner.getSelectedItem().toString();
 //                System.out.println("New Exercise Name :"+eName+"New Exercise Muscle: "+eMuscle);
