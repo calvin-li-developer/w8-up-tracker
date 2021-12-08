@@ -44,11 +44,20 @@ public class WorkoutCreateActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     String userID;
     String workoutID;
+    String exerciseID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_create);
+
+        // TODO figure out if this makes sense when doing the list of exercises to add to the workout
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.hasExtra("exerciseChosen")) {
+                exerciseID = (String) intent.getExtras().get("exerciseCreated");
+            }
+        }
 
         workoutName = findViewById(R.id.workoutNameEdit);
         muscleGroupSpinner = findViewById(R.id.workoutMuscleGroupSpinner);

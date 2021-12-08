@@ -158,8 +158,10 @@ public class ExerciseCreateActivity extends AppCompatActivity {
 
                 workoutsReference.updateChildren(childUpdates);
 
-                Intent goToExerciseOptionsIntent = new Intent(ExerciseCreateActivity.this, ExerciseListActivity.class);
-                startActivity(goToExerciseOptionsIntent);
+                Intent goBackToWorkoutViewIntent = new Intent(ExerciseCreateActivity.this, WorkoutViewActivity.class);
+                goBackToWorkoutViewIntent.putExtra("workoutID",workoutID);
+                goBackToWorkoutViewIntent.putExtra("exerciseCreated",exerciseKey);
+                startActivity(goBackToWorkoutViewIntent);
             }
         });
     }
