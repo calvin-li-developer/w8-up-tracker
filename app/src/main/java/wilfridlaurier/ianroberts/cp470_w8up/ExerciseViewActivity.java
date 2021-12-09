@@ -89,6 +89,7 @@ public class ExerciseViewActivity extends AppCompatActivity {
         repConfigEdit = findViewById(R.id.repConfigEdit);
         setRepConfigAddButton = findViewById(R.id.setRepConfigAddButton);
 
+        //Gonna update for new look
 
         Intent intent = getIntent();
         if (intent != null) {
