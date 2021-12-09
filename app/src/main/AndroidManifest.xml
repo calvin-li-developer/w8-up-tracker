@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="wilfridlaurier.ianroberts.cp470_w8up" >
+    package="wilfridlaurier.ianroberts.cp470_w8up">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CP470_W8UP">
-      
+        <activity
+            android:name=".ExerciseViewSetRepActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
@@ -19,7 +22,7 @@
         <activity
             android:name=".SetReminderActivity"
             android:exported="true"
-            android:parentActivityName=".ReminderActivity"/>
+            android:parentActivityName=".ReminderActivity" />
         <activity
             android:name=".ReminderActivity"
             android:exported="true" />
@@ -27,6 +30,11 @@
             android:name=".HydrationActivity"
             android:exported="true"
             android:parentActivityName=".HabitTrackerActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/title_activity_toolbar"
+            android:theme="@style/Theme.CP470_W8UP.NoActionBar" />
         <activity
             android:name=".SettingsActivity"
             android:exported="true" />
@@ -45,7 +53,9 @@
         <activity
             android:name=".HabitTrackerActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity" >
+
+        </activity>
         <activity
             android:name=".WeightProgressChartActivity"
             android:exported="true" />
@@ -60,19 +70,17 @@
             android:exported="true" />
         <activity
             android:name=".WorkoutViewActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".WorkoutCreateActivity"
-            android:exported="true" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".TutorialActivity"
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true" 
+            android:exported="true"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name=".AllWorkoutsActivity"
@@ -87,7 +95,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

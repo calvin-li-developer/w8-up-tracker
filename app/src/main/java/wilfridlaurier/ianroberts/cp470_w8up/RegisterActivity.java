@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        
+
         database = FirebaseDatabase.getInstance();
 
 
@@ -108,9 +108,9 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     Toast.makeText(RegisterActivity.this,"User Created",Toast.LENGTH_SHORT).show();
                     userID = fAuth.getCurrentUser().getUid();
-                    
+
                     // Map for user metadata
-                    Map<String, Object> userData = new HashMap<>();
+                    Map<String, String> userData = new HashMap<>();
                     userData.put("fullName",fullName);
                     userData.put("email",email);
 

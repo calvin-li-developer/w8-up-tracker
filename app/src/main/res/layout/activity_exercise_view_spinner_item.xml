@@ -8,7 +8,7 @@
         android:id="@+id/setRepsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="40dp"
         android:textAlignment="viewStart"/>
 
 </LinearLayout>
