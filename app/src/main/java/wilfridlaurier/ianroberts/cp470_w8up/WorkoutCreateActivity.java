@@ -40,25 +40,57 @@ public class WorkoutCreateActivity extends AppCompatActivity {
     Spinner muscleGroupSpinner;
     Switch isPinnedSwitch;
     Button workoutCreateButton;
+//    Button workoutAddExerciseButton;
 
     FirebaseAuth fAuth;
     String userID;
-    String workoutID;
+//    String workoutID;
+//    String exerciseID;
+//    Boolean addedExercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_create);
 
+        // TODO figure out if this makes sense when doing the list of exercises to add to the workout
+//        Intent intent = getIntent();
+//        if (intent != null) {
+//            if (intent.hasExtra("exerciseChosen")) {
+//                exerciseID = (String) intent.getExtras().get("exerciseCreated");
+//            }
+//            if (intent.hasExtra("addedExercise")) {
+//                addedExercise = (Boolean) intent.getExtras().get("addedExercise");
+//            }
+//            if (intent.hasExtra("workoutID")) {
+//                workoutID = (String) intent.getExtras().get("workoutID");
+//            }
+//        }
+
         workoutName = findViewById(R.id.workoutNameEdit);
         muscleGroupSpinner = findViewById(R.id.workoutMuscleGroupSpinner);
         isPinnedSwitch = findViewById(R.id.isPinnedSwitch);
         workoutCreateButton = findViewById(R.id.workoutCreateButton);
+//        workoutAddExerciseButton = findViewById(R.id.workoutAddExerciseButton);
 
         Spinner muscleGroupSpinner = (Spinner) findViewById(R.id.workoutMuscleGroupSpinner);
         muscleGroupSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.muscleGroups)));
 
         // TODO add functionaility to add exercises using a button that sends them to create exercise activity
+
+//        workoutAddExerciseButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                fAuth = FirebaseAuth.getInstance();
+//                userID = fAuth.getCurrentUser().getUid();
+//
+//                Intent goToExerciseListIntent = new Intent(WorkoutCreateActivity.this, ExerciseListActivity.class);
+//                // TODO when you send them to the exercise list when they choose an exercise add it directly to the workoutID that you have created before the workout wsa actually created
+////                goToExerciseListIntent.putExtra("createdWorkoutID", newWorkout.getWorkoutID());
+////                startActivity(goToWorkoutViewIntent);
+//            }
+//        });
 
         workoutCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
