@@ -26,8 +26,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.w3c.dom.Document;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(fAuth.getCurrentUser() != null)
         {
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity1.class));
             finish();
         }
 
@@ -120,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.d(TAG,"onFailure: " + e.toString());
                         }
                     });
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), MainActivity1.class));
                 }
                 else{
                     Toast.makeText(RegisterActivity.this,"Error ! " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
