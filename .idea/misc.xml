@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/scoba/AndroidStudioProjects/CP470_W8UP/app/src/main/res/layout/activity_habit_tracker.xml" value="0.2" />
+        <entry key="..\:/Users/scoba/AndroidStudioProjects/CP470_W8UP/app/src/main/res/layout/activity_reminder.xml" value="0.2" />
+        <entry key="..\:/Users/scoba/AndroidStudioProjects/CP470_W8UP/app/src/main/res/layout/activity_set_reminder.xml" value="0.264" />
       </map>
     </option>
   </component>
