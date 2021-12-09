@@ -6,7 +6,9 @@
 
     <item
         android:id="@+id/menu_one"
+        android:icon="@drawable/delete_workout_icon"
         android:orderInCategory="101"
         android:title="Delete"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        app:tint="#ffff"/>
 </menu>

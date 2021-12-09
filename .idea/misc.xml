@@ -3,6 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable-anydpi/logout_icon.xml" value="0.2921875" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable-anydpi/question_mark.xml" value="0.4203125" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4203125" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable-xxhdpi/logout_icon.xml" value="0.2921875" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/delete_workout_icon.xml" value="0.2921875" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/habit_tracker_icon.xml" value="0.4203125" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.4203125" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/ic_baseline_filter_alt_24.xml" value="0.4203125" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/ic_edit_icon.xml" value="0.4203125" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/logout_icon.xml" value="0.246875" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/reminder_icon.xml" value="0.4203125" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/socialmedia_icon.xml" value="0.4203125" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/weight_tracker_icon.xml" value="0.4203125" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/drawable/workouts_icon.xml" value="0.246875" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/layout-v21/activity_main.xml" value="0.33469202898550726" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/layout-v21/activity_workout_view.xml" value="0.33469202898550726" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/layout/activity_toolbar.xml" value="0.23072916666666668" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/layout/activity_user_profile_page.xml" value="0.23072916666666668" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/layout/activity_workout_view.xml" value="0.18005540166204986" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/layout/activity_workout_view_list_item.xml" value="0.33469202898550726" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/menu/toolbar_menu.xml" value="0.23072916666666668" />
+        <entry key="..\:/Git Repo/w8-up-tracker/app/src/main/res/menu/toolbar_menu_workout.xml" value="0.23072916666666668" />
       </map>
     </option>
   </component>

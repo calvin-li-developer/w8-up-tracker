@@ -116,10 +116,7 @@ public class WorkoutCreateActivity extends AppCompatActivity {
 
                 workoutsReference.updateChildren(childUpdates);
 
-                Intent goToWorkoutViewIntent = new Intent(WorkoutCreateActivity.this, WorkoutViewActivity.class);
-                // TODO do i even need this?
-                goToWorkoutViewIntent.putExtra("createdWorkoutID", newWorkout.getWorkoutID());
-                startActivity(goToWorkoutViewIntent);
+                finish();
             }
         });
     }

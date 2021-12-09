@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         lLoginBtn = findViewById(R.id.loginBtn);
 
         lEmail.setText("lixx4090@mylaurier.ca");
-        lPassword.setText("12345678");
+        lPassword.setText("123456");
         progressBar = findViewById(R.id.progressBarLogin);
 
         lRegisterBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),RegisterActivity.class)));

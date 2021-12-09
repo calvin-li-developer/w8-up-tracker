@@ -70,7 +70,6 @@ public class WorkoutViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_view);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-
         exerciseSearchView = findViewById(R.id.searchExercisesSearchView);
         newExerciseButton = findViewById(R.id.newExerciseButton);
         filterExercisesButton = findViewById(R.id.filterExercisesButton);
@@ -255,8 +254,7 @@ public class WorkoutViewActivity extends AppCompatActivity {
                 Log.d("Toolbar","menu_one Selected");
                 DatabaseReference thisWorkoutRef = database.getReference("users/" + userID + "/userWorkouts/" + workoutID);
                 thisWorkoutRef.removeValue();
-                Intent wo = new Intent(this, AllWorkoutsActivity.class);
-                startActivity(wo);
+                finish();
                 return true;
             default:
                 Log.d("Toolbar","No Menu Selected");
