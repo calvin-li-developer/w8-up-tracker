@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".HabitTrackerActivity">
 
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendar"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.121"
+        app:mcv_selectionColor="#008000"
+        app:mcv_showOtherDates="all"
+        app:mcv_selectionMode="multiple"
+        />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -13,10 +28,10 @@
         android:text="Reminder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintHorizontal_bias="0.74"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.806" />
+        app:layout_constraintVertical_bias="0.823" />
 
     <TextView
         android:id="@+id/textView"
@@ -25,44 +40,44 @@
         android:text="Hydration"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.806" />
+        app:layout_constraintVertical_bias="0.823" />
 
     <ImageButton
         android:id="@+id/hydration"
-        android:layout_width="128dp"
-        android:layout_height="89dp"
+        android:layout_width="130dp"
+        android:layout_height="90dp"
         android:src="?android:attr/textSelectHandle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
+        app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.724" />
+        app:layout_constraintVertical_bias="0.755" />
 
     <ImageButton
         android:id="@+id/reminder"
-        android:layout_width="128dp"
-        android:layout_height="89dp"
+        android:layout_width="130dp"
+        android:layout_height="90dp"
         android:src="@android:drawable/ic_popup_reminder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintHorizontal_bias="0.836"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.724" />
+        app:layout_constraintVertical_bias="0.755" />
 
-    <CalendarView
-        android:id="@+id/calendar"
-        android:layout_width="359dp"
-        android:layout_height="335dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.128" />
+    <!--    <CalendarView-->
+<!--        android:id="@+id/calendar"-->
+<!--        android:layout_width="359dp"-->
+<!--        android:layout_height="335dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.128" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
