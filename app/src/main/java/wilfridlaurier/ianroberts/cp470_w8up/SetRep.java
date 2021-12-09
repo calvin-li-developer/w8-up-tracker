@@ -17,22 +17,30 @@ package wilfridlaurier.ianroberts.cp470_w8up;
 
  */
 
+import java.util.HashMap;
+
 public class SetRep {
     String setRepID = "";
     int sets = 0;
     int reps = 0;
-    int weight = 0;
+    WeightProgress weightProgressData = new WeightProgress();
 
     public SetRep(){
         this.sets = 0;
         this.reps = 0;
-        this.weight = 0;
+        this.weightProgressData = new WeightProgress();
     }
 
-    public SetRep(int sets, int reps, int weight){
+    public SetRep(int sets, int reps){
         this.sets = sets;
         this.reps = reps;
-        this.weight = weight;
+        this.weightProgressData = new WeightProgress();
+    }
+
+    public SetRep(int sets, int reps, WeightProgress weightProgress){
+        this.sets = sets;
+        this.reps = reps;
+        this.weightProgressData = weightProgress;
     }
 
     // Set methods for the SetRep class
@@ -49,8 +57,8 @@ public class SetRep {
         this.reps = reps;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
+    public void setWeightProgress(WeightProgress weightProgress) {
+        this.weightProgressData = weightProgress;
     }
 
     //Get methods for the SetRep class
@@ -67,8 +75,8 @@ public class SetRep {
         return reps;
     }
 
-    public int getWeight() {
-        return weight;
+    public WeightProgress getWeightProgress() {
+        return weightProgressData;
     }
 }
 
