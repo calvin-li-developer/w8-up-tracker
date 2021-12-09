@@ -47,19 +47,16 @@
                 android:layout_weight="1"/>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:textAlignment="center"
-            android:text="Choose Set Rep Config" />
-
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="Choose Set Rep Config"
+        android:textAlignment="center" />
 
         <ListView
             android:id="@+id/setRepsListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="400dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

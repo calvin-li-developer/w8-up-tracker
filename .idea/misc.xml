@@ -7,13 +7,14 @@
         <entry key="..\:/Users/footb/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/activity_list_item.xml" value="0.13703140830800406" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/drawable/ic_baseline_add_circle_24.xml" value="0.29322916666666665" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_all_workouts.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_all_workouts_list_item.xml" value="0.2046875" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_create_custom_exercise.xml" value="0.20339412360688958" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_exercise_create.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_exercise_edit.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_exercise_list.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_exercise_options.xml" value="0.20339412360688958" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_exercise_view.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_exercise_view_list_item.xml" value="0.1" />
+        <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_exercise_view_list_item.xml" value="0.22" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_exercise_view_set_rep.xml" value="0.221875" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_exercise_view_spinner_item.xml" value="0.25" />
         <entry key="..\:/Users/footb/OneDrive/Documents/Computer Science Courses/CP470/CP470_W8UP/app/src/main/res/layout/activity_habit_tracker.xml" value="0.20572916666666666" />
