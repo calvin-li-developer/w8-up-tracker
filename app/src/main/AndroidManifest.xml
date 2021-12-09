@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="wilfridlaurier.ianroberts.cp470_w8up" >
+    package="wilfridlaurier.ianroberts.cp470_w8up">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CP470_W8UP">
-      
+        <activity
+            android:name=".ExerciseViewSetRepActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
@@ -19,7 +22,7 @@
         <activity
             android:name=".SetReminderActivity"
             android:exported="true"
-            android:parentActivityName=".ReminderActivity"/>
+            android:parentActivityName=".ReminderActivity" />
         <activity
             android:name=".ReminderActivity"
             android:exported="true" />
@@ -73,7 +76,7 @@
             android:exported="true" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true" 
+            android:exported="true"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity
             android:name=".AllWorkoutsActivity"

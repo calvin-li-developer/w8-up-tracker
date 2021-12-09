@@ -58,6 +58,7 @@ public class WorkoutViewActivity extends AppCompatActivity {
     String userID;
     String workoutID;
     String createdWorkoutID;
+    String exerciseID;
 
     ArrayList<Exercise> userExercises;
 

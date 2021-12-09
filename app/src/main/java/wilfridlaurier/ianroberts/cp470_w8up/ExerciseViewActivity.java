@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,7 +25,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /*
@@ -44,11 +50,14 @@ public class ExerciseViewActivity extends AppCompatActivity {
 
     TextView exerciseName;
     TextView exerciseMuscleGroup;
-    Spinner setRepSpinner;
     ListView setRepListView;
+    EditText setConfigEdit;
+    EditText repConfigEdit;
+    Button setRepConfigAddButton;
 
     String exerciseID;
     String workoutID;
+    String setRepID;
 
     SetRepsAdapter adapter;
 
@@ -60,8 +69,6 @@ public class ExerciseViewActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     String userID;
 
-    String filterOption = "ALL";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +76,10 @@ public class ExerciseViewActivity extends AppCompatActivity {
 
         exerciseName = findViewById(R.id.exerciseNameText);
         exerciseMuscleGroup = findViewById(R.id.exerciseMuscleGroupText);
-        setRepSpinner = findViewById(R.id.exerciseSetRepsOptionsSpinner);
         setRepListView = findViewById(R.id.setRepsListView);
+        setConfigEdit = findViewById(R.id.setConfigEdit);
+        repConfigEdit = findViewById(R.id.repConfigEdit);
+        setRepConfigAddButton = findViewById(R.id.setRepConfigAddButton);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -98,19 +107,12 @@ public class ExerciseViewActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 exerciseToView = new ArrayList<>();
-//                adapter = new SetRepsAdapter(getApplicationContext(), 0, exerciseSetReps);
-//                setRepListView.setAdapter(adapter);
-                System.out.println("snapshot: "+snapshot.toString());
                 for (DataSnapshot exercise : snapshot.getChildren()) {
                     Exercise temp = exercise.getValue(Exercise.class);
-                    System.out.println("exercise ID of temp: "+temp.getExerciseID());
-                    System.out.println("exercise ID: "+exerciseID);
                     if(temp.getExerciseID().equals(exerciseID)) {
                         selectedExercise = exercise.getValue(Exercise.class);
                     }
                 }
-//                setRepSpinner.setAdapter(new SetRepsAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,exerciseSetReps));
-//                adapter.notifyDataSetChanged();
                 exerciseName.setText(selectedExercise.getExerciseName());
                 exerciseMuscleGroup.setText(selectedExercise.getMuscleGroupCategory());
             }
@@ -136,7 +138,6 @@ public class ExerciseViewActivity extends AppCompatActivity {
                     SetRep temp = setRep.getValue(SetRep.class);
                     exerciseSetReps.add(temp);
                 }
-                setRepSpinner.setAdapter(new SetRepsAdapter(getApplicationContext(), android.R.layout.simple_spinner_item,exerciseSetReps));
                 adapter.notifyDataSetChanged();
             }
 
@@ -146,19 +147,62 @@ public class ExerciseViewActivity extends AppCompatActivity {
             }
         });
 
-        setRepSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        setRepConfigAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onClick(View view) {
+                SetRep newSetRep = new SetRep(Integer.parseInt(setConfigEdit.getText().toString()),Integer.parseInt(repConfigEdit.getText().toString()));
+
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                fAuth = FirebaseAuth.getInstance();
+                userID = fAuth.getCurrentUser().getUid();
+
+                DatabaseReference rootRef = database.getReference();
+                DatabaseReference workoutsReference = rootRef.child("users").child(userID);
+
+                Map<String,Object> childUpdates;
+
+                String setRepKey = workoutsReference.push().getKey();
+
+                childUpdates = new HashMap<>();
+                newSetRep.setSetRepID(setRepKey);
+                childUpdates.put("/userExercises/" + exerciseID + "/setRepConfigs/" + setRepKey, newSetRep);
+                childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseID + "/setRepConfigs/" + setRepKey, newSetRep);
+
+                workoutsReference.updateChildren(childUpdates);
                 adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
+        setRepListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                SetRep selectedSetRep = (SetRep) (setRepListView.getItemAtPosition(i));
+                Intent showExercise = new Intent(getApplicationContext(),ExerciseViewSetRepActivity.class);
+                showExercise.putExtra("setRepID",selectedSetRep.getSetRepID());
+                showExercise.putExtra("exerciseID",exerciseID);
+                showExercise.putExtra("workoutID",workoutID);
+                startActivity(showExercise);
+            }
+        });
 
+        setRepConfigAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SetRep newSetRep = new SetRep(Integer.parseInt(setConfigEdit.getText().toString()),Integer.parseInt(repConfigEdit.getText().toString()));
+
+                DatabaseReference setRepsReference = rootRef.child("users").child(userID);
+
+                String setRepKey = setRepsReference.push().getKey();
+
+                Map<String,Object> childUpdates;
+                childUpdates = new HashMap<>();
+                newSetRep.setSetRepID(setRepKey);
+                childUpdates.put("/userExercises/" + exerciseID + "/setRepConfigs/" + setRepKey, newSetRep);
+                childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseID + "/setRepConfigs/" + setRepKey, newSetRep);
+
+                setRepsReference.updateChildren(childUpdates);
+            }
+        });
     }
     @Override
     protected void onResume() {
@@ -199,16 +243,12 @@ public class ExerciseViewActivity extends AppCompatActivity {
         public View getView(int position, View result, ViewGroup parent) {
             SetRep setRep = getItem(position);
 
-            if(result == null){
-                result = LayoutInflater.from(getContext()).inflate(R.layout.activity_exercise_view_list_item,parent,false);
+            if (result == null) {
+                result = LayoutInflater.from(getContext()).inflate(R.layout.activity_exercise_view_spinner_item, parent, false);
             }
-
-            TextView setAmount = (TextView) result.findViewById(R.id.setAmountText);
-            TextView repAmount = (TextView) result.findViewById(R.id.repAmountText);
-            TextView weightAmount = (TextView) result.findViewById(R.id.weightAmountText);
-            setAmount.setText(Integer.toString(setRep.getSets()));
-            repAmount.setText(Integer.toString(setRep.getReps()));
-            weightAmount.setText(Integer.toString(setRep.getWeight()));
+            TextView setRepsTextView = result.findViewById(R.id.setRepsText);
+            String temp = setRep.getSets() + "x" +setRep.getReps();
+            setRepsTextView.setText(temp);
 
             return result;
         }
