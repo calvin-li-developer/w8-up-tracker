@@ -23,32 +23,26 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.w3c.dom.Document;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-
+    public static final String TAG = "fStore";
     EditText rFullName, rEmail, rPassword;
     Button rRegisterBtn;
     TextView rLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
+    FirebaseFirestore fStore;
     String userID;
-    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        
-        database = FirebaseDatabase.getInstance();
-
 
         rFullName = findViewById(R.id.registerFullName);
         rEmail = findViewById(R.id.registerEmail);
@@ -57,11 +51,12 @@ public class RegisterActivity extends AppCompatActivity {
         rLoginBtn = findViewById(R.id.registerLoginBtn);
 
         fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBarRegister);
 
         if(fAuth.getCurrentUser() != null)
         {
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity1.class));
             finish();
         }
 
@@ -84,7 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
             rEmail.setError("Email is Required.");
             return;
         }
-
         if(TextUtils.isEmpty(password))
         {
             rPassword.setError("Password is Required.");
@@ -99,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        //register the user in firebase + add user metadata to realtime database
+        //register the user in firebase
 
         fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -108,16 +102,23 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     Toast.makeText(RegisterActivity.this,"User Created",Toast.LENGTH_SHORT).show();
                     userID = fAuth.getCurrentUser().getUid();
-                    
-                    // Map for user metadata
-                    Map<String, Object> userData = new HashMap<>();
-                    userData.put("fullName",fullName);
-                    userData.put("email",email);
-
-                    DatabaseReference userIDReference = database.getReference("users/" + userID);
-                    userIDReference.setValue(userData);
-
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    DocumentReference documentReference = fStore.collection("users").document(userID);
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("fullName",fullName);
+                    user.put("email",email);
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Log.d(TAG,"onSuccess: User profile is created for " + userID);
+                        }
+                    });
+                    documentReference.set(user).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG,"onFailure: " + e.toString());
+                        }
+                    });
+                    startActivity(new Intent(getApplicationContext(), MainActivity1.class));
                 }
                 else{
                     Toast.makeText(RegisterActivity.this,"Error ! " + task.getException().getMessage(), Toast.LENGTH_LONG).show();

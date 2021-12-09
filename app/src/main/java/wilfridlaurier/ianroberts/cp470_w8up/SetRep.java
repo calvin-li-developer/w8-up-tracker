@@ -23,21 +23,19 @@ public class SetRep {
     String setRepID = "";
     int sets = 0;
     int reps = 0;
-    WeightProgress weightProgressData = new WeightProgress();
+    HashMap<String,WeightProgress> weightProgressData = new HashMap<>();
 
     public SetRep(){
         this.sets = 0;
         this.reps = 0;
-        this.weightProgressData = new WeightProgress();
     }
 
     public SetRep(int sets, int reps){
         this.sets = sets;
         this.reps = reps;
-        this.weightProgressData = new WeightProgress();
     }
 
-    public SetRep(int sets, int reps, WeightProgress weightProgress){
+    public SetRep(int sets, int reps,HashMap<String,WeightProgress> weightProgress){
         this.sets = sets;
         this.reps = reps;
         this.weightProgressData = weightProgress;
@@ -57,7 +55,7 @@ public class SetRep {
         this.reps = reps;
     }
 
-    public void setWeightProgress(WeightProgress weightProgress) {
+    public void setWeightProgress(HashMap<String,WeightProgress> weightProgress) {
         this.weightProgressData = weightProgress;
     }
 
@@ -75,7 +73,7 @@ public class SetRep {
         return reps;
     }
 
-    public WeightProgress getWeightProgress() {
+    public HashMap<String,WeightProgress> getWeightProgress() {
         return weightProgressData;
     }
 }

@@ -1,13 +1,18 @@
 package wilfridlaurier.ianroberts.cp470_w8up;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,7 +22,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,11 +63,13 @@ public class WorkoutViewActivity extends AppCompatActivity {
     ArrayList<Exercise> userExercises;
 
     ExercisesAdapter adapter;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_view);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
 
         exerciseSearchView = findViewById(R.id.searchExercisesSearchView);
         newExerciseButton = findViewById(R.id.newExerciseButton);
@@ -75,14 +84,15 @@ public class WorkoutViewActivity extends AppCompatActivity {
             }
             if (intent.hasExtra("createdWorkoutID")) {
                 createdWorkoutID = (String) intent.getExtras().get("createdWorkoutID");
+                workoutID = createdWorkoutID;
             }
         }
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         fAuth = FirebaseAuth.getInstance();
         userID = fAuth.getCurrentUser().getUid();
-
         DatabaseReference rootRef = database.getReference();
+
         DatabaseReference exercisesReference = rootRef.child("users").child(userID).child("userWorkouts").child(workoutID).child("exerciseList");
 
         System.out.println("workoutID: "+exercisesReference.toString());
@@ -157,6 +167,29 @@ public class WorkoutViewActivity extends AppCompatActivity {
                 startActivity(showExercise);
             }
         });
+
+        DatabaseReference thisWorkoutRef = database.getReference("users/" + userID + "/userWorkouts/" + workoutID);
+
+        thisWorkoutRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+
+                Workout temp =  dataSnapshot.getValue(Workout.class);
+                if (temp != null) {
+                    Log.d(ACTIVITY_NAME, "Datasnapshot W:" + temp.getWorkoutName());
+                    myToolbar.setTitle(temp.getWorkoutName());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(ACTIVITY_NAME, "Failed to read value.", error.toException());
+            }
+        });
+        // Should be called last at all times
+        setSupportActionBar(myToolbar);
     }
 
     @Override
@@ -206,6 +239,28 @@ public class WorkoutViewActivity extends AppCompatActivity {
             exerciseName.setText(exercise.getExerciseName());
 
             return result;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu m){
+        getMenuInflater().inflate(R.menu.toolbar_menu, m);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem mi)
+    {
+        switch(mi.getItemId()) {
+            case R.id.menu_one:
+                Log.d("Toolbar","menu_one Selected");
+                DatabaseReference thisWorkoutRef = database.getReference("users/" + userID + "/userWorkouts/" + workoutID);
+                thisWorkoutRef.removeValue();
+                Intent wo = new Intent(this, AllWorkoutsActivity.class);
+                startActivity(wo);
+                return true;
+            default:
+                Log.d("Toolbar","No Menu Selected");
+                return true;
         }
     }
 }

@@ -47,53 +47,16 @@
                 android:layout_weight="1"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Choose set rep config:" />
-
-            <Spinner
-                android:id="@+id/exerciseSetRepsOptionsSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="number" />
-        </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:text="Choose Set Rep Config"
+        android:textAlignment="center" />
 
         <ListView
             android:id="@+id/setRepsListView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/weightProgressText"
-                android:text="Add new weight:"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"/>
-            <EditText
-                android:id="@+id/weightProgressEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/exerciseAddWeightProgressButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:text="Add new weight:" />
+            android:layout_height="400dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,23 +87,6 @@
                 android:layout_weight="2"/>
             <EditText
                 android:id="@+id/repConfigEdit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/weightConfigText"
-                android:text="Add weight for set rep config:"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"/>
-            <EditText
-                android:id="@+id/weightProgressConfigEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
