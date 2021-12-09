@@ -31,6 +31,11 @@
             android:exported="true"
             android:parentActivityName=".HabitTrackerActivity" />
         <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/title_activity_toolbar"
+            android:theme="@style/Theme.CP470_W8UP.NoActionBar" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="true" />
         <activity
@@ -69,7 +74,7 @@
             android:name=".WorkoutCreateActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivity1"
             android:exported="true" />
         <activity
             android:name=".TutorialActivity"
@@ -91,7 +96,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

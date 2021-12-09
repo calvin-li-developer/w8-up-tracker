@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".TestToolbar">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/menu_one"
+    <item android:id="@+id/workouts"
+        android:title="One"
+        android:icon="@drawable/workouts_icon"
         android:orderInCategory="101"
-        android:title="Delete"
         app:showAsAction="always" />
+    <item android:id="@+id/weightTracking"
+        android:title="One"
+        android:icon="@drawable/weight_tracker_icon"
+        android:orderInCategory="101"
+        app:showAsAction="always" />
+    <item android:id="@+id/habitTracking"
+        android:title="One"
+        android:icon="@drawable/habit_tracker_icon"
+        android:orderInCategory="101"
+        app:showAsAction="always" />
+    <item android:id="@+id/profile"
+        android:title="One"
+        android:icon="@drawable/socialmedia_icon"
+        android:orderInCategory="101"
+        app:showAsAction="always" />
+    <item android:id="@+id/Help"
+        android:title="One"
+        android:icon="@drawable/question_mark"
+        android:orderInCategory="101"
+        app:showAsAction="always" />
+
 </menu>
