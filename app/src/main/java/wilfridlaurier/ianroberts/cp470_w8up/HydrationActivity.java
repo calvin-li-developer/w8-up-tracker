@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class HydrationActivity extends AppCompatActivity {
 
@@ -18,6 +19,7 @@ public class HydrationActivity extends AppCompatActivity {
     ProgressBar waterBar;
     String waterTextVal;
     String goalTextVal;
+    TextView waterAmount;
     double total;
     double goal;
     double progress;
@@ -36,8 +38,10 @@ public class HydrationActivity extends AppCompatActivity {
         total = Integer.parseInt(waterTextVal);
         goalTextVal = goalText.getText().toString();
         goal = Integer.parseInt(goalTextVal);
+        waterAmount = findViewById(R.id.waterAmount);
 
         waterBar.setProgress((int)(total/goal)*100);
+        waterAmount.setText((int)total + "/" + (int)goal);
 
         addWater.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +51,7 @@ public class HydrationActivity extends AppCompatActivity {
                 progress = total/goal;
                 Log.i("HydrationActivity", "" + (int)((progress)*100));
                 waterBar.setProgress((int)(progress*100));
+                waterAmount.setText((int)total + "/" + (int)goal);
             }
         });
 
@@ -54,7 +59,9 @@ public class HydrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 goal = Integer.parseInt(goalText.getText().toString());
-                waterBar.setProgress((int)(total/goal)*100);
+                progress = total/goal;
+                waterBar.setProgress((int)(progress*100));
+                waterAmount.setText((int)total + "/" + (int)goal);
             }
         });
     }

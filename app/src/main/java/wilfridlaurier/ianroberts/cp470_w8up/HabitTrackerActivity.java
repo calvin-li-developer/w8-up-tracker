@@ -10,9 +10,14 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+
 import java.util.Date;
 
 public class HabitTrackerActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +25,13 @@ public class HabitTrackerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_habit_tracker);
         ImageButton hydrationButton = findViewById(R.id.hydration);
         ImageButton reminderButton = findViewById(R.id.reminder);
-        CalendarView calendar = findViewById(R.id.calendar);
+        MaterialCalendarView calendar = findViewById(R.id.calendar);
+        calendar.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+
+            }
+        });
 
         hydrationButton.setOnClickListener(new View.OnClickListener() {
             @Override

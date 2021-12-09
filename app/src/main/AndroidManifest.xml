@@ -53,7 +53,9 @@
         <activity
             android:name=".HabitTrackerActivity"
             android:exported="true"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity" >
+
+        </activity>
         <activity
             android:name=".WeightProgressChartActivity"
             android:exported="true" />
