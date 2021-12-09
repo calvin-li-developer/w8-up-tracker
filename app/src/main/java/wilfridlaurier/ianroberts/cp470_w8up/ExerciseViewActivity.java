@@ -60,6 +60,7 @@ public class ExerciseViewActivity extends AppCompatActivity {
 
     String exerciseID;
     String workoutID;
+    String setRepID;
 
     SetRepsAdapter adapter;
 
@@ -193,8 +194,9 @@ public class ExerciseViewActivity extends AppCompatActivity {
 
                 childUpdates = new HashMap<>();
                 newWeightProgress.setWeightProgressID(weightProgressKey);
-                childUpdates.put("/userExercises/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + (SetRep)setRepSpinner.getSelectedItem() + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
-                childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + (SetRep)setRepSpinner.getSelectedItem() + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
+                setRepID = ((SetRep)setRepSpinner.getSelectedItem()).getSetRepID();
+                childUpdates.put("/userExercises/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + setRepID + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
+                childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + setRepID + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
 
                 workoutsReference.updateChildren(childUpdates);
             }
@@ -203,6 +205,7 @@ public class ExerciseViewActivity extends AppCompatActivity {
         setRepConfigAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                WeightProgress newWeightProgress = new WeightProgress((Integer.parseInt(weightProgressEdit.getText().toString())), new Date());
                 SetRep newSetRep = new SetRep(Integer.parseInt(setConfigEdit.getText().toString()),Integer.parseInt(repConfigEdit.getText().toString()));
                 //TODO add a toast for the new exercise being created
 
@@ -221,6 +224,15 @@ public class ExerciseViewActivity extends AppCompatActivity {
                 newSetRep.setSetRepID(setRepKey);
                 childUpdates.put("/userExercises/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + setRepKey, newSetRep);
                 childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + setRepKey, newSetRep);
+
+                workoutsReference.updateChildren(childUpdates);
+
+                String weightProgressKey = workoutsReference.push().getKey();
+
+                childUpdates = new HashMap<>();
+                newWeightProgress.setWeightProgressID(weightProgressKey);
+                childUpdates.put("/userExercises/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + setRepKey + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
+                childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + selectedExercise.getExerciseID() + "/setRepConfigs/" + setRepKey + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
 
                 workoutsReference.updateChildren(childUpdates);
 
@@ -270,9 +282,43 @@ public class ExerciseViewActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View result, ViewGroup parent) {
             SetRep setRep = getItem(position);
-            WeightProgress weightProgress =  setRep.getWeightProgress();
-            int weight = weightProgress.getWeight();
-            Date date = weightProgress.getProgressDate();
+
+            //TODO this thought isn't finished but we need it to essentially have another arrylist of weightprogressobjects that can be selected to fill the list view
+
+//            FirebaseDatabase database = FirebaseDatabase.getInstance();
+//            fAuth = FirebaseAuth.getInstance();
+//            userID = fAuth.getCurrentUser().getUid();
+//
+//            DatabaseReference rootRef = database.getReference();
+//
+//            DatabaseReference weightProgressReference = rootRef.child("users").child(userID).child("userWorkouts").child(workoutID).child("exerciseList").child(exerciseID).child("setRepConfigs").child(setRepID).child("weightProgressTracking");
+//
+//            System.out.println("workoutID: "+weightProgressReference.toString());
+//
+//            weightProgressReference.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    exerciseSetReps = new ArrayList<>();
+//                    adapter = new SetRepsAdapter(getApplicationContext(), 0, exerciseSetReps,false);
+//                    setRepListView.setAdapter(adapter);
+//                    System.out.println("snapshot: "+snapshot.toString());
+//                    for (DataSnapshot setRep : snapshot.getChildren()) {
+//                        SetRep temp = setRep.getValue(SetRep.class);
+//                        exerciseSetReps.add(temp);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                    Log.w(ACTIVITY_NAME, "Could not get exercise set reps", error.toException());
+//                }
+//            });
+
+            //WeightProgress weightProgress =  setRep.getWeightProgress();
+//            int weight = weightProgress.getWeight();
+//            Date date = weightProgress.getProgressDate();
+            int weight = 0;
+            Date date = new Date();
             SimpleDateFormat formattedDate = new SimpleDateFormat("MM/dd/yyyy");
 
             if(isSpinner){
