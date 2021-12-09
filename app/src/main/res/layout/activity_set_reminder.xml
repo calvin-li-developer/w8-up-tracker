@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".SetReminderActivity">
 
+    <Button
+        android:id="@+id/setReminder"
+        android:layout_width="307dp"
+        android:layout_height="36dp"
+        android:text="Set Reminder"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.326" />
+
     <TextView
         android:id="@+id/dateSet"
         android:layout_width="154dp"
@@ -58,26 +71,30 @@
 
     <TimePicker
         android:id="@+id/chooseTime"
-        android:layout_width="291dp"
+        android:layout_width="300dp"
         android:layout_height="255dp"
         android:timePickerMode="spinner"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.636" />
 
     <DatePicker
         android:id="@+id/chooseDate"
-        android:layout_width="291dp"
+        android:layout_width="300dp"
         android:layout_height="255dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.636" />
 
     <Button
         android:id="@+id/timeSetButton"

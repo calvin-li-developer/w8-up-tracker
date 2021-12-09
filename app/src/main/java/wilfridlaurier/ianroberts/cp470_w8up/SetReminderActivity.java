@@ -3,17 +3,22 @@ package wilfridlaurier.ianroberts.cp470_w8up;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,8 +29,10 @@ public class SetReminderActivity extends AppCompatActivity {
     TextView date;
     Button timeSet;
     Button dateSet;
+    Button setReminder;
     TimePicker chooseTime;
     DatePicker chooseDate;
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -40,6 +47,8 @@ public class SetReminderActivity extends AppCompatActivity {
         dateSet = findViewById(R.id.dateSetButton);
         chooseTime = findViewById(R.id.chooseTime);
         chooseDate = findViewById(R.id.chooseDate);
+        setReminder = findViewById(R.id.setReminder);
+
 
         Date currDateTime = Calendar.getInstance().getTime();
 
@@ -79,6 +88,17 @@ public class SetReminderActivity extends AppCompatActivity {
                 Calendar cal = Calendar.getInstance();
                 cal.set(i, i1, i2);
                 date.setText(dateFormat.format(cal.getTime()));
+            }
+        });
+
+        setReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //reminders.add(time.getText().toString());
+                Intent resultIntent = new Intent(  );
+                resultIntent.putExtra("Reminder", time.getText().toString());
+                setResult(Activity.RESULT_OK, resultIntent);
+                finish();
             }
         });
 
