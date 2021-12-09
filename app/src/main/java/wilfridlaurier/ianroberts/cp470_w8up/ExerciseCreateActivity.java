@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ public class ExerciseCreateActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     String userID;
     String workoutID;
+    Boolean createWorkoutCallBack;
 
 
     @Override
@@ -53,6 +55,9 @@ public class ExerciseCreateActivity extends AppCompatActivity {
             if (intent.hasExtra("workoutID")) {
                 workoutID = (String) intent.getExtras().get("workoutID");
             }
+//            if(intent.hasExtra("createWorkoutCallBack")){
+//                createWorkoutCallBack = (Boolean) intent.getExtras().get("createWorkoutCallBack");
+//            }
         }
 
         exerciseName = (EditText) findViewById(R.id.exerciseNameEdit);
@@ -125,9 +130,12 @@ public class ExerciseCreateActivity extends AppCompatActivity {
         exerciseCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SetRep newSetRep = new SetRep(Integer.parseInt(exerciseSets.getText().toString()),Integer.parseInt(exerciseReps.getText().toString()), (Integer.parseInt(exerciseWeight.getText().toString())));
-                Exercise newExercise = new Exercise(exerciseName.getText().toString(),(String) muscleGroupSpinner.getSelectedItem());
-                //TODO add this new exercise to the list of exercises for the user
+                WeightProgress newWeightProgress = new WeightProgress((Integer.parseInt(exerciseWeight.getText().toString())), new Date());
+                SetRep newSetRep = new SetRep(Integer.parseInt(exerciseSets.getText().toString()),Integer.parseInt(exerciseReps.getText().toString()));
+                String eName = exerciseName.getText().toString();
+                String eMuscle = muscleGroupSpinner.getSelectedItem().toString();
+//                System.out.println("New Exercise Name :"+eName+"New Exercise Muscle: "+eMuscle);
+                Exercise newExercise = new Exercise(eName,eMuscle);
                 //TODO add a toast for the new exercise being created
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -144,6 +152,8 @@ public class ExerciseCreateActivity extends AppCompatActivity {
                 childUpdates.put("/userExercises/" + exerciseKey, newExercise);
                 childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey, newExercise);
 
+                workoutsReference.updateChildren(childUpdates);
+
                 String setRepKey = workoutsReference.push().getKey();
 
                 childUpdates = new HashMap<>();
@@ -153,8 +163,20 @@ public class ExerciseCreateActivity extends AppCompatActivity {
 
                 workoutsReference.updateChildren(childUpdates);
 
-                Intent goToExerciseOptionsIntent = new Intent(ExerciseCreateActivity.this, ExerciseListActivity.class);
-                startActivity(goToExerciseOptionsIntent);
+                String weightProgressKey = workoutsReference.push().getKey();
+
+                childUpdates = new HashMap<>();
+                newWeightProgress.setWeightProgressID(weightProgressKey);
+                childUpdates.put("/userExercises/" + exerciseKey + "/setRepConfigs/" + setRepKey + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
+                childUpdates.put("/userWorkouts/" + workoutID + "/exerciseList/" + exerciseKey + "/setRepConfigs/" + setRepKey + "/weightProgressTracking/" + weightProgressKey, newWeightProgress);
+
+                workoutsReference.updateChildren(childUpdates);
+
+                Intent goBackToWorkoutViewIntent = new Intent(ExerciseCreateActivity.this, WorkoutViewActivity.class);
+                goBackToWorkoutViewIntent.putExtra("workoutID",workoutID);
+                goBackToWorkoutViewIntent.putExtra("exerciseCreated",exerciseKey);
+                startActivity(goBackToWorkoutViewIntent);
+
             }
         });
     }

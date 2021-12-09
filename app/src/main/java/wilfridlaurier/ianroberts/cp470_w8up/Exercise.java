@@ -36,8 +36,6 @@ public class Exercise {
     HashMap<String,SetRep> setRepConfigs = new HashMap<>();
     String muscleGroupCategory;
 
-    // TODO sort out how to do images for exercises
-
     public Exercise(){
         this.exerciseName = "";
         this.setRepConfigs = new HashMap<String,SetRep>();
