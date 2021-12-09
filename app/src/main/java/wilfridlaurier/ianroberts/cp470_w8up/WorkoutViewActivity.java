@@ -244,7 +244,7 @@ public class WorkoutViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu (Menu m){
-        getMenuInflater().inflate(R.menu.toolbar_menu, m);
+        getMenuInflater().inflate(R.menu.toolbar_menu_workout, m);
         return true;
     }
     @Override

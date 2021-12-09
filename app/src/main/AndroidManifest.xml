@@ -76,9 +76,6 @@
             android:name=".WorkoutCreateActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity1"
-            android:exported="true" />
-        <activity
             android:name=".TutorialActivity"
             android:exported="true" />
         <activity
