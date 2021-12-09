@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton workout;
     private ImageButton weightTracker;
     private ImageButton socialMedia;
     private ImageButton habitTracker;
+    FirebaseDatabase database;
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

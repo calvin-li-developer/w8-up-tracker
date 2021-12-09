@@ -48,11 +48,13 @@ public class Workout {
     public Workout(){
         this.workoutName = "";
         this.muscleGroupCategories = new ArrayList<>();
+        this.exerciseList = new HashMap<>();
     }
     public Workout(String workoutName, ArrayList<String> muscleGroupCategories,Boolean isPinned){
         this.workoutName = workoutName;
         this.muscleGroupCategories = muscleGroupCategories;
         this.isPinned = isPinned;
+        this.exerciseList = new HashMap<>();
     }
 
     // Set methods for the workout class
