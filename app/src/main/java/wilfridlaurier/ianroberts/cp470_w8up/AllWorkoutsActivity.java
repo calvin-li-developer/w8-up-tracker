@@ -149,7 +149,6 @@ public class AllWorkoutsActivity extends AppCompatActivity {
             }
         });
 
-
         workoutsSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

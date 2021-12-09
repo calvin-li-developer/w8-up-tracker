@@ -110,7 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                     userID = fAuth.getCurrentUser().getUid();
                     
                     // Map for user metadata
-                    Map<String, Object> userData = new HashMap<>();
+                    Map<String, String> userData = new HashMap<>();
                     userData.put("fullName",fullName);
                     userData.put("email",email);
 

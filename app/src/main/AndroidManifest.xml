@@ -63,7 +63,8 @@
             android:exported="true" />
         <activity
             android:name=".WorkoutViewActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".WorkoutCreateActivity"
             android:exported="true" />

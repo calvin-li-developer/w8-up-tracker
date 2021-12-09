@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -28,31 +29,44 @@ public class LoginActivity extends AppCompatActivity {
     EditText lEmail, lPassword;
     Button lLoginBtn;
     TextView lRegisterBtn;
-    FirebaseAuth fAuth = FirebaseAuth.getInstance();
     ProgressBar progressBar;
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Check if there still is a logged in user.
-        if (fAuth.getCurrentUser() != null)
-        {
-            // Log out their account
-            fAuth.signOut();
-        }
+        newUserInstance();
 
         lEmail = findViewById(R.id.loginEmail);
         lPassword = findViewById(R.id.loginPwd);
         lRegisterBtn = findViewById(R.id.loginRegisterBtn);
         lLoginBtn = findViewById(R.id.loginBtn);
 
-        lEmail.setText("test@hotmail.com");
-        lPassword.setText("123456");
+        lEmail.setText("lixx4090@mylaurier.ca");
+        lPassword.setText("12345678");
         progressBar = findViewById(R.id.progressBarLogin);
 
         lRegisterBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),RegisterActivity.class)));
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Log.i("LoginActivity", "onResume()");
+        newUserInstance();
+    }
+
+    private void newUserInstance()
+    {
+        // Check if there still is a logged in user.
+        if (fAuth.getCurrentUser() != null)
+        {
+            // Log out their account
+            fAuth.signOut();
+        }
     }
 
     public void onLoginBtnClick(View v)
@@ -73,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        // authenticate the user
+        // Authenticate the user
         fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -84,8 +98,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(LoginActivity.this,"Error ! " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
                 }
+                progressBar.setVisibility(View.GONE);
             }
         });
         hideKeyboard(this);
